@@ -1,0 +1,49 @@
+spriteTypes = {
+	spriteType = {
+		name = "GFX_settled_arkship_mastery_nature"
+		texturefile = "gfx/interface/icons/ascension_perks/settled_arkship_mastery_nature.dds"
+		alwaystransparent = yes
+	}
+
+	spriteType = {
+		name = "GFX_ap_settled_arkship_mastery_nature"
+		texturefile = "gfx/interface/icons/ascension_perks/settled_arkship_mastery_nature.dds"
+		alwaystransparent = yes
+	}
+
+	spriteType = {
+		name = "GFX_settled_arkship_interstellar_dominion"
+		texturefile = "gfx/interface/icons/ascension_perks/settled_arkship_interstellar_dominion.dds"
+		alwaystransparent = yes
+	}
+
+	spriteType = {
+		name = "GFX_ap_settled_arkship_interstellar_dominion"
+		texturefile = "gfx/interface/icons/ascension_perks/settled_arkship_interstellar_dominion.dds"
+		alwaystransparent = yes
+	}
+
+	spriteType = {
+		name = "GFX_settled_arkship_imperial_prerogative"
+		texturefile = "gfx/interface/icons/ascension_perks/settled_arkship_imperial_prerogative.dds"
+		alwaystransparent = yes
+	}
+
+	spriteType = {
+		name = "GFX_ap_settled_arkship_imperial_prerogative"
+		texturefile = "gfx/interface/icons/ascension_perks/settled_arkship_imperial_prerogative.dds"
+		alwaystransparent = yes
+	}
+
+	spriteType = {
+		name = "GFX_settled_arkship_voidborn"
+		texturefile = "gfx/interface/icons/ascension_perks/settled_arkship_voidborn.dds"
+		alwaystransparent = yes
+	}
+
+	spriteType = {
+		name = "GFX_ap_settled_arkship_voidborn"
+		texturefile = "gfx/interface/icons/ascension_perks/settled_arkship_voidborn.dds"
+		alwaystransparent = yes
+	}
+}

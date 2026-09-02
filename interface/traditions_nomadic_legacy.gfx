@@ -1,0 +1,52 @@
+# 游牧传统组 UI sprite（复用原版 dds 纹理）
+spriteTypes = {
+	spriteType = {
+		name = "GFX_tradition_category_bg_tradition_nomadic_legacy"
+		textureFile = "gfx/interface/tiles/tradition_category_tile_expansion.dds"
+	}
+
+	spriteType = {
+		name = "GFX_tradition_hex_bg_tradition_nomadic_legacy"
+		textureFile = "gfx/interface/traditions/tradition_hex_bg_expansion.dds"
+	}
+
+	spriteType = {
+		name = "GFX_tradition_category_icon_tradition_nomadic_legacy"
+		textureFile = "gfx/interface/icons/traditions/tree_icons/tradition_icon_expansion.dds"
+	}
+
+	spriteType = {
+		name = "GFX_tr_nomadic_legacy_adopt"
+		textureFile = "gfx/interface/icons/traditions/tradition_expansion_reach_for_the_stars.dds"
+	}
+
+	spriteType = {
+		name = "GFX_tr_nomadic_legacy_1"
+		textureFile = "gfx/interface/icons/traditions/tradition_expansion_colonization_fever.dds"
+	}
+
+	spriteType = {
+		name = "GFX_tr_nomadic_legacy_2"
+		textureFile = "gfx/interface/icons/traditions/tradition_aptitude_specialist_training.dds"
+	}
+
+	spriteType = {
+		name = "GFX_tr_nomadic_legacy_3"
+		textureFile = "gfx/interface/icons/traditions/tradition_expansion_galactic_ambition.dds"
+	}
+
+	spriteType = {
+		name = "GFX_tr_nomadic_legacy_4"
+		textureFile = "gfx/interface/icons/traditions/tradition_expansion_courier_network.dds"
+	}
+
+	spriteType = {
+		name = "GFX_tr_nomadic_legacy_5"
+		textureFile = "gfx/interface/icons/traditions/tradition_expansion_a_new_life.dds"
+	}
+
+	spriteType = {
+		name = "GFX_tr_nomadic_legacy_finish"
+		textureFile = "gfx/interface/icons/traditions/tradition_diplomacy_diplomatic_networking.dds"
+	}
+}

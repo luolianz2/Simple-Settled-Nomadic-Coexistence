@@ -1,0 +1,58 @@
+# 合约接包资格覆盖（原版 09_scripted_triggers_nomads.txt）
+# 原版 can_accept_contracts_trigger 要求 is_nomadic = yes（仅游牧可接包）
+# 模组扩展：点"合约协定"传统（tr_nomadic_legacy_5）的定居帝国也可接包，其余判定与原版一致
+can_accept_contracts_trigger = {
+	OR = {
+		is_nomadic = yes
+		has_tradition = tr_nomadic_legacy_5
+	}
+	#Forever Cruise
+	NOR = {
+		has_country_flag = forever_cruise_planetfall
+		has_country_flag = forever_cruise_mutiny
+	}
+	#Subjects
+	NOT = { any_agreement = { has_term_value = { term = subject_diplomacy value = subject_can_not_do_diplomacy } } }
+	#Inwards Perfection
+	NOT = { has_valid_civic = civic_inwards_perfection }
+	#Genocidals
+	is_homicidal = no #Would be better to make bespoke triggers that check if the issuer is your species/vassal/a fellow machine, but this will do for now
+}
+
+# 发包资格覆盖（原版 09_scripted_triggers_nomads.txt）
+# 原版 any_relation 要求场上有可接包帝国（游牧）才能发包
+# 模组扩展：自己点了"合约协定"传统（can_accept 为真）时也可发包，不依赖场上是否有游牧
+can_issue_contracts_trigger = {
+	is_nomadic = no
+	OR = {
+		is_country_type = default
+		is_enclave_country = yes
+	}
+	is_homicidal = no
+	NOT = { has_country_flag = declared_crisis }
+	OR = {
+		can_accept_contracts_trigger = yes
+		any_relation = {
+			can_accept_contracts_trigger = yes
+			has_communications = prev
+		}
+	}
+	NOT = { any_agreement = { has_term_value = { term = subject_diplomacy value = subject_can_not_do_diplomacy } } }
+}
+
+# 合约运营方科技判定覆盖（原版 09_scripted_triggers_nomads.txt）
+# 原版要求场上有掌握科技的游牧帝国才可发布此类合约
+# 模组扩展：可接包且掌握相关需求科技即可作为运营方，不再要求场上有游牧
+contract_requires_operator_technology = {
+	OR = {
+		AND = {
+			can_accept_contracts_trigger = yes
+			has_technology = $TECH$
+		}
+		any_relation = {
+			is_nomadic = yes
+			has_communications = prev
+			has_technology = $TECH$
+		}
+	}
+}

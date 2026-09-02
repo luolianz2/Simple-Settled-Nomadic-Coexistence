@@ -1,0 +1,24 @@
+# 传统组：游牧（Nomadic Legacy）
+# 非游牧帝国可选，通过传统树逐步解锁游牧加成
+tradition_nomadic_legacy = {
+	desc = {
+		trigger = {
+			is_nomadic = no
+		}
+		text = tradition_nomadic_legacy_desc
+	}
+	tree_template = "tree_12_11"
+	adoption_bonus = "tr_nomadic_legacy_adopt"
+	finish_bonus = "tr_nomadic_legacy_finish"
+	traditions = {
+		"tr_nomadic_legacy_4"
+		"tr_nomadic_legacy_1"
+		"tr_nomadic_legacy_5"
+		"tr_nomadic_legacy_3"
+		"tr_nomadic_legacy_2"
+	}
+
+	ai_weight = {
+		factor = 1
+	}
+}

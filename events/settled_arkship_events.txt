@@ -1,0 +1,121 @@
+# 逐星局势阶段事件
+# 局势 settled_arkship_building（逐星）：进度 1300，月推进 12
+# 各阶段 on_first_enter / on_start / on_progress_complete 触发下列事件
+namespace = settled_arkship
+
+# 仰望者（局势启动）
+situation_event = {
+	id = settled_arkship.10
+	title = settled_arkship.10.name
+	desc = settled_arkship.10.desc
+	picture = GFX_evt_waystation
+	is_triggered_only = yes
+
+	option = {
+		name = settled_arkship.10.option
+	}
+}
+
+# 铸造者（到达 200 点）
+situation_event = {
+	id = settled_arkship.11
+	title = settled_arkship.11.name
+	desc = settled_arkship.11.desc
+	picture = GFX_evt_waystation
+	is_triggered_only = yes
+
+	option = {
+		name = settled_arkship.11.option
+	}
+}
+
+# 先行者（到达 350 点）
+situation_event = {
+	id = settled_arkship.12
+	title = settled_arkship.12.name
+	desc = settled_arkship.12.desc
+	picture = GFX_evt_waystation
+	is_triggered_only = yes
+
+	option = {
+		name = settled_arkship.12.option
+	}
+}
+
+# 踏步者（到达 500 点：获得驿站 1 + 零重力工程，首都新增科研方舟）
+situation_event = {
+	id = settled_arkship.13
+	title = settled_arkship.13.name
+	desc = settled_arkship.13.desc
+	picture = GFX_evt_waystation
+	is_triggered_only = yes
+
+	option = {
+		name = settled_arkship.13.option
+		owner = {
+			give_technology = { tech = tech_waystation_1 message = no }
+			give_technology = { tech = tech_space_construction message = no }
+			create_settled_arkship_effect = yes
+		}
+	}
+}
+
+# 前进者（到达 700 点：获得方舟建造）
+situation_event = {
+	id = settled_arkship.14
+	title = settled_arkship.14.name
+	desc = settled_arkship.14.desc
+	picture = GFX_evt_waystation
+	is_triggered_only = yes
+
+	option = {
+		name = settled_arkship.14.option
+		owner = {
+			give_technology = { tech = tech_arkship_construction message = no }
+		}
+	}
+}
+
+# 奔跑者（到达 1000 点：获得 6 项游牧科技）
+situation_event = {
+	id = settled_arkship.15
+	title = settled_arkship.15.name
+	desc = settled_arkship.15.desc
+	picture = GFX_evt_waystation
+	is_triggered_only = yes
+
+	option = {
+		name = settled_arkship.15.option
+		owner = {
+			give_technology = { tech = tech_civilian_arkship message = no }
+			give_technology = { tech = tech_science_arkship message = no }
+			give_technology = { tech = tech_military_arkship message = no }
+			give_technology = { tech = tech_waystation_2 message = no }
+			give_technology = { tech = tech_waystation_3 message = no }
+			give_technology = { tech = tech_arkship_tier_2 message = no }
+		}
+	}
+}
+
+# 飞翔者（进度 1300 完成：获得剩余游牧科技，局势结束）
+situation_event = {
+	id = settled_arkship.16
+	title = settled_arkship.16.name
+	desc = settled_arkship.16.desc
+	picture = GFX_evt_waystation
+	is_triggered_only = yes
+
+	option = {
+		name = settled_arkship.16.option
+		owner = {
+			give_technology = { tech = tech_planetary_engineering message = no }
+			give_technology = { tech = tech_nomads_mechanized_mining message = no }
+			give_technology = { tech = tech_arkship_tier_3 message = no }
+			give_technology = { tech = tech_arkship_planetary_refinery message = no }
+			give_technology = { tech = tech_arkship_stellar_igniter message = no }
+			give_technology = { tech = tech_arkship_system_scanner message = no }
+			give_technology = { tech = tech_arkship_exodus_jump message = no }
+		}
+		destroy_situation = this
+	}
+}

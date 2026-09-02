@@ -1,0 +1,41 @@
+# 法令：炽燃（运行储备传统解锁）
+# 效果：岗位维护费+10%、专家岗位效率+50%、复合子个体岗位效率+50%、基础设施建造速度+50%
+# 以下两行与原版 common/edicts/00_edicts.txt 顶部的常量同值，本地定义仅用于编辑器解析（重复定义合法，行为不变）
+@EdictPerpetual = -1
+@Edict3Cost = 30
+edict_settled_arkship_blaze = {
+	length = @EdictPerpetual
+	icon = "GFX_edict_type_policy"
+
+	resources = {
+		category = edicts
+		cost = {
+			unity = @Edict3Cost
+			multiplier = value:edict_size_effect
+		}
+		upkeep = {
+			unity = @Edict3Cost
+			multiplier = value:edict_size_effect
+		}
+	}
+
+	modifier = {
+		planet_jobs_upkeep_mult = 0.1
+		planet_jobs_specialist_produces_mult = 0.5
+		pop_cat_complex_drone_bonus_workforce_mult = 0.5
+		planet_building_build_speed_mult = 0.5
+	}
+
+	potential = {
+		is_nomadic = no
+		has_tradition = tr_nomadic_legacy_1
+	}
+
+	show_tech_unlock_if = {
+		has_tradition = tr_nomadic_legacy_1
+	}
+
+	ai_weight = {
+		weight = 0
+	}
+}

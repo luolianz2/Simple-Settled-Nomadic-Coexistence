@@ -1,0 +1,7 @@
+# on_actions 同名键为合并语义，不会覆盖原版
+# on_entering_system 原版已有 nomads.4720（游历推进，仅游牧触发）；本模组追加自有事件供点游牧传统的定居帝国推进游历
+on_entering_system = {
+	events = {
+		settled_arkship.200
+	}
+}

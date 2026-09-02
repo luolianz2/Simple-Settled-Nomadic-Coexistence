@@ -1,0 +1,83 @@
+# 游牧传统树（非游牧帝国专用）
+
+# 开门：游牧（启动"逐星"局势）
+tr_nomadic_legacy_adopt = {
+	possible = {
+		is_nomadic = no
+	}
+	# 常驻国家修正：全帝国方舟宜居 +100%
+	modifier = {
+		pc_ark_habitability = 1.0
+	}
+	on_enabled = {
+		# 直接启动逐星局势
+		start_situation = {
+			type = settled_arkship_building
+		}
+	}
+	custom_tooltip_with_modifiers = tr_nomadic_legacy_adopt_effects
+}
+
+# 右1：运行储备（解锁法令-炽燃）
+tr_nomadic_legacy_1 = {
+	possible = {
+		is_nomadic = no
+	}
+	custom_tooltip = tr_nomadic_legacy_1_effects
+}
+
+# 右2：飞往无垠（每月凝聚力+10%、闪避+5、亚光速航速+10%）（需先点右1运行储备）
+tr_nomadic_legacy_2 = {
+	possible = {
+		is_nomadic = no
+		has_tradition = tr_nomadic_legacy_1
+	}
+	modifier = {
+		country_unity_produces_mult = 0.1
+		ship_evasion_add = 5
+		ship_speed_mult = 0.1
+	}
+}
+
+# 左1：移动补给站（采集资源+20%）
+tr_nomadic_legacy_4 = {
+	possible = {
+		is_nomadic = no
+	}
+	modifier = {
+		arkship_harvest_resources_produces_mult = 0.2
+	}
+}
+
+# 中2：铸造者（最大区划数+1、劳工人口产出+10%）（需先点左1移动补给站）
+tr_nomadic_legacy_3 = {
+	possible = {
+		is_nomadic = no
+		has_tradition = tr_nomadic_legacy_4
+	}
+	modifier = {
+		planet_max_districts_add = 1
+		worker_and_simple_drone_cat_bonus_workforce_mult = 0.1
+	}
+}
+
+# 左2：合约协定（解锁接收合约功能）（需先点左1移动补给站）
+tr_nomadic_legacy_5 = {
+	possible = {
+		is_nomadic = no
+		has_tradition = tr_nomadic_legacy_4
+	}
+	custom_tooltip = tr_nomadic_legacy_5_effects
+}
+
+# 闭门（研究速度+10%、飞升槽+1、解锁游牧专属飞升）
+tr_nomadic_legacy_finish = {
+	possible = {
+		is_nomadic = no
+	}
+	modifier = {
+		all_technology_research_speed = 0.1
+		ascension_perks_add = 1
+	}
+	# 游牧专属飞升的可选性由 common/ascension_perks/00_settled_arkship_perks.txt 控制（potential 判定点本传统）
+}

@@ -1,0 +1,576 @@
+# 浪迹星涯游历推进事件（自有事件，不覆盖原版 nomads.4720）
+# 原版 trigger 要求 owner 为游牧（is_nomadic = yes）→ 点游牧传统闭门的定居帝国无法推进游历任务
+# 原版 nomads.4720 由 on_entering_system 直接触发（trigger 要求游牧，对定居无效）；本事件同样挂 on_entering_system（模组 on_actions 合并），
+# owner 判定改为 OR { is_nomadic, has_tradition = tr_nomadic_legacy_finish }，使点传统定居帝国可推进游历
+
+
+namespace = settled_arkship
+
+ship_event = { # Nomad Exploration Rewards
+	id = settled_arkship.200
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		owner = {
+			OR = {
+				is_nomadic = yes
+				has_tradition = tr_nomadic_legacy_finish
+			}
+			has_ascension_perk = ap_wanderlust
+			NOT = {
+				has_country_flag = nomad_exploration_complete
+			}
+		}
+		is_arkship_ship = yes
+		from = {
+			NOT = { has_star_flag = visited_by_nomad@root.owner }
+			#Flags Check
+			OR = {
+				has_star_flag = ancient_wonders_system
+				has_star_flag = antique_threat_system
+				has_star_flag = enclave
+				has_star_flag = galactic_landmark_system
+				has_star_flag = marauder_system
+				has_star_flag = natural_spectacle_system
+				has_star_flag = precursor_system
+				has_star_flag = space_ecology_system
+			}
+		}
+	}
+
+	immediate = {
+		from = {
+			set_star_flag = visited_by_nomad@root.owner
+		}
+		if = {
+			limit = {
+				from = { has_star_flag = curator_guidance_target@root.owner }
+			}
+			from = { remove_star_flag = curator_guidance_target@root.owner }
+			owner = { remove_point_of_interest = curator_guidance_poi@from }
+		}
+		if = { #failsafe check for event chain
+			limit = {
+				NOT = {
+					owner = { has_event_chain = nomad_exploration_chain }
+				}
+			}
+			owner = {
+				begin_event_chain = {
+					event_chain = nomad_exploration_chain
+					target = this
+				}
+			}
+		}
+		#increment the counters and update the modifiers,
+		if = {
+			limit = {
+				from = { has_star_flag = ancient_wonders_system }
+			}
+			owner = {
+				change_variable = {
+					which = ancient_wonders_system_seen
+					value = 1
+				}
+				add_modifier = {
+					modifier = ancient_wonders_modifier
+					mult = value:ancient_wonders_system_ratio
+					days = -1
+				}
+				if = { #if category is finished, give flag for arkship size
+					limit = {
+						check_variable_arithmetic = {
+							which = value:ancient_wonders_system_ratio
+							multiply = 1
+							value >= 1
+						}
+						NOT = {
+							has_country_flag = ancient_wonders_completed
+						}
+					}
+					add_mission_counter = {
+						mission = NOMAD_EXPLORATION_ANCIENT_WONDERS
+						counter = ancient_wonders_progress
+						amount = 1
+					}
+				}
+				#notify
+				create_message = {
+					type = NOMAD_EXPLORATION
+					localization = NOMAD_EXPLORATION_WONDERS_DESC
+					days = 20
+					target = from
+					variable = {
+						type = name
+						localization = SYSTEM
+						scope = from
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				from = { has_star_flag = antique_threat_system }
+			}
+			owner = {
+				change_variable = {
+					which = antique_threat_system_seen
+					value = 1
+				}
+				add_modifier = {
+					modifier = antique_threat_modifier
+					mult = value:antique_threat_system_ratio
+					days = -1
+				}
+				if = { #if category is finished, give flag for arkship size
+					limit = {
+						check_variable_arithmetic = {
+							which = value:antique_threat_system_ratio
+							multiply = 1
+							value >= 1
+						}
+						NOT = {
+							has_country_flag = antique_threat_completed
+						}
+					}
+					add_mission_counter = {
+						mission = NOMAD_EXPLORATION_ANTIQUE_THREAT
+						counter = antique_threat_progress
+						amount = 1
+					}
+				}
+				#notify
+				create_message = {
+					type = NOMAD_EXPLORATION
+					localization = NOMAD_EXPLORATION_THREAT_DESC
+					days = 20
+					target = from
+					variable = {
+						type = name
+						localization = SYSTEM
+						scope = from
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				from = { has_star_flag = enclave }
+			}
+			owner = {
+				change_variable = {
+					which = enclave_system_seen
+					value = 1
+				}
+				add_modifier = {
+					modifier = enclave_modifier
+					mult = value:enclave_system_ratio
+					days = -1
+				}
+				if = { #if category is finished, give flag for arkship size
+					limit = {
+						check_variable_arithmetic = {
+							which = value:enclave_system_ratio
+							multiply = 1
+							value >= 1
+						}
+						NOT = {
+							has_country_flag = enclave_completed
+						}
+					}
+					add_mission_counter = {
+						mission = NOMAD_EXPLORATION_ENCLAVE
+						counter = enclave_progress
+						amount = 1
+					}
+				}
+				#notify
+				create_message = {
+					type = NOMAD_EXPLORATION
+					localization = NOMAD_EXPLORATION_ENCLAVE_DESC
+					days = 20
+					target = from
+					variable = {
+						type = name
+						localization = SYSTEM
+						scope = from
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				from = { has_star_flag = galactic_landmark_system }
+			}
+			owner = {
+				change_variable = {
+					which = galactic_landmark_system_seen
+					value = 1
+				}
+				add_modifier = {
+					modifier = galactic_landmark_modifier
+					mult = value:galactic_landmark_system_ratio
+					days = -1
+				}
+				if = { #if category is finished, give flag for arkship size
+					limit = {
+						check_variable_arithmetic = {
+							which = value:galactic_landmark_system_ratio
+							multiply = 1
+							value >= 1
+						}
+						NOT = {
+							has_country_flag = galactic_landmark_completed
+						}
+					}
+					add_mission_counter = {
+						mission = NOMAD_EXPLORATION_GALACTIC_LANDMARK
+						counter = galactic_landmark_progress
+						amount = 1
+					}
+				}
+				#notify
+				create_message = {
+					type = NOMAD_EXPLORATION
+					localization = NOMAD_EXPLORATION_LANDMARK_DESC
+					days = 20
+					target = from
+					variable = {
+						type = name
+						localization = SYSTEM
+						scope = from
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				from = { has_star_flag = marauder_system }
+			}
+			owner = {
+				change_variable = {
+					which = marauder_system_seen
+					value = 1
+				}
+				add_modifier = {
+					modifier = marauder_modifier
+					mult = value:marauder_system_ratio
+					days = -1
+				}
+				if = { #if category is finished, give flag for arkship size
+					limit = {
+						check_variable_arithmetic = {
+							which = value:marauder_system_ratio
+							multiply = 1
+							value >= 1
+						}
+						NOT = {
+							has_country_flag = marauder_completed
+						}
+					}
+					add_mission_counter = {
+						mission = NOMAD_EXPLORATION_MARAUDER
+						counter = marauder_progress
+						amount = 1
+					}
+				}
+				#notify
+				create_message = {
+					type = NOMAD_EXPLORATION
+					localization = NOMAD_EXPLORATION_MARAUDERS_DESC
+					days = 20
+					target = from
+					variable = {
+						type = name
+						localization = SYSTEM
+						scope = from
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				from = { has_star_flag = natural_spectacle_system }
+			}
+			owner = {
+				change_variable = {
+					which = natural_spectacle_system_seen
+					value = 1
+				}
+				add_modifier = {
+					modifier = natural_spectacle_modifier
+					mult = value:natural_spectacle_system_ratio
+					days = -1
+				}
+				if = { #if category is finished, give flag for arkship size
+					limit = {
+						check_variable_arithmetic = {
+							which = value:natural_spectacle_system_ratio
+							multiply = 1
+							value >= 1
+						}
+						NOT = {
+							has_country_flag = natural_spectacle_completed
+						}
+					}
+					add_mission_counter = {
+						mission = NOMAD_EXPLORATION_NATURAL_SPECTACLE
+						counter = natural_spectacle_progress
+						amount = 1
+					}
+				}
+				#notify
+				create_message = {
+					type = NOMAD_EXPLORATION
+					localization = NOMAD_EXPLORATION_SPECTACLE_DESC
+					days = 20
+					target = from
+					variable = {
+						type = name
+						localization = SYSTEM
+						scope = from
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				from = { has_star_flag = precursor_system }
+			}
+			owner = {
+				change_variable = {
+					which = precursor_system_seen
+					value = 1
+				}
+				add_modifier = {
+					modifier = precursor_modifier
+					mult = value:precursor_system_ratio
+					days = -1
+				}
+				if = { #if category is finished, give flag for arkship size
+					limit = {
+						check_variable_arithmetic = {
+							which = value:precursor_system_ratio
+							multiply = 1
+							value >= 1
+						}
+						NOT = {
+							has_country_flag = precursor_completed
+						}
+					}
+					add_mission_counter = {
+						mission = NOMAD_EXPLORATION_PRECURSOR
+						counter = precursor_progress
+						amount = 1
+					}
+				}
+				#notify
+				create_message = {
+					type = NOMAD_EXPLORATION
+					localization = NOMAD_EXPLORATION_PRECURSOR_DESC
+					days = 20
+					target = from
+					variable = {
+						type = name
+						localization = SYSTEM
+						scope = from
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				from = { has_star_flag = space_ecology_system }
+			}
+			owner = {
+				change_variable = {
+					which = space_ecology_system_seen
+					value = 1
+				}
+				add_modifier = {
+					modifier = space_ecology_modifier
+					mult = value:space_ecology_system_ratio
+					days = -1
+				}
+				if = { #if category is finished, give flag for arkship size
+					limit = {
+						check_variable_arithmetic = {
+							which = value:space_ecology_system_ratio
+							multiply = 1
+							value >= 1
+						}
+						NOT = {
+							has_country_flag = space_ecology_completed
+						}
+					}
+					add_mission_counter = {
+						mission = NOMAD_EXPLORATION_SPACE_ECOLOGY
+						counter = space_ecology_progress
+						amount = 1
+					}
+				}
+				#notify
+				create_message = {
+					type = NOMAD_EXPLORATION
+					localization = NOMAD_EXPLORATION_ECOLOGY_DESC
+					days = 20
+					target = from
+					variable = {
+						type = name
+						localization = SYSTEM
+						scope = from
+					}
+				}
+			}
+		}
+		#if no system of a given category were spawned, complete the category but do not grant the modifier
+		if = {
+			limit = {
+				NOT = {
+					any_system = {
+						has_star_flag = ancient_wonders_system
+					}
+				}
+				NOT = { owner = { has_country_flag = ancient_wonders_completed } }
+			}
+			owner = {
+				add_mission_counter = {
+					mission = NOMAD_EXPLORATION_ANCIENT_WONDERS
+					counter = ancient_wonders_progress
+					amount = 1
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					any_system = {
+						has_star_flag = antique_threat_system
+					}
+				}
+				NOT = { owner = { has_country_flag = antique_threat_completed } }
+			}
+			owner = {
+				add_mission_counter = {
+					mission = NOMAD_EXPLORATION_ANTIQUE_THREAT
+					counter = antique_threat_progress
+					amount = 1
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					any_system = {
+						has_star_flag = galactic_landmark_system
+					}
+				}
+				NOT = { owner = { has_country_flag = galactic_landmark_completed } }
+			}
+			owner = {
+				add_mission_counter = {
+					mission = NOMAD_EXPLORATION_GALACTIC_LANDMARK
+					counter = galactic_landmark_progress
+					amount = 1
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					any_system = {
+						has_star_flag = marauder_system
+					}
+				}
+				NOT = { owner = { has_country_flag = marauder_completed } }
+			}
+			owner = {
+				add_mission_counter = {
+					mission = NOMAD_EXPLORATION_MARAUDER
+					counter = marauder_progress
+					amount = 1
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					any_system = {
+						has_star_flag = natural_spectacle_system
+					}
+				}
+				NOT = { owner = { has_country_flag = natural_spectacle_completed } }
+			}
+			owner = {
+				add_mission_counter = {
+					mission = NOMAD_EXPLORATION_NATURAL_SPECTACLE
+					counter = natural_spectacle_progress
+					amount = 1
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					any_system = {
+						has_star_flag = precursor_system
+					}
+				}
+				NOT = { owner = { has_country_flag = precursor_completed } }
+			}
+			owner = {
+				add_mission_counter = {
+					mission = NOMAD_EXPLORATION_PRECURSOR
+					counter = precursor_progress
+					amount = 1
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					any_system = {
+						has_star_flag = space_ecology_system
+					}
+				}
+				NOT = { owner = { has_country_flag = space_ecology_completed } }
+			}
+			owner = {
+				add_mission_counter = {
+					mission = NOMAD_EXPLORATION_SPACE_ECOLOGY
+					counter = space_ecology_progress
+					amount = 1
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					any_system = {
+						has_star_flag = enclave
+					}
+				}
+				NOT = { owner = { has_country_flag = enclave_completed } }
+			}
+			owner = {
+				add_mission_counter = {
+					mission = NOMAD_EXPLORATION_ENCLAVE
+					counter = enclave_progress
+					amount = 1
+				}
+			}
+		}
+		# grant small unity reward and notify
+		owner = {
+			add_monthly_resource_mult = {
+				resource = unity
+				value = @tier1unityreward
+				min = @tier1unitymin
+				max = @tier1unitymax
+			}
+		}
+	}
+}
+

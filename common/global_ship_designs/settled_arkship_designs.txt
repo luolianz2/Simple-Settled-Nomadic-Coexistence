@@ -1,0 +1,42 @@
+# 科研方舟设计（逐星局势赠送的方舟使用，create_settled_arkship_effect 引用）
+# 槽位参照 science_arkship_tier_1_section (nomads_dlc.txt)
+ship_design = {
+	name = "SETTLED_ARKSHIP_DESIGN"
+	ship_size = science_arkship_tier_1
+	is_event_design = yes
+
+	section = {
+		template = "science_arkship_tier_1_section"
+		slot = "mid"
+
+		component = {
+			slot = "STRIKE_CRAFT_01"
+			template = "STRIKE_CRAFT_HANGAR_1"
+		}
+		component = {
+			slot = "STRIKE_CRAFT_02"
+			template = "STRIKE_CRAFT_HANGAR_1"
+		}
+		component = {
+			slot = "PD_01"
+			template = "POINT_DEFENCE_1"
+		}
+		component = {
+			slot = "PD_02"
+			template = "POINT_DEFENCE_1"
+		}
+		component = {
+			slot = "PD_03"
+			template = "POINT_DEFENCE_1"
+		}
+		component = {
+			slot = "PD_04"
+			template = "POINT_DEFENCE_1"
+		}
+	}
+	required_component = "HYPER_DRIVE_1"
+	required_component = "SHIP_THRUSTER_1"
+	required_component = "JUGGERNAUT_COLD_FUSION_REACTOR"
+	required_component = "SENSOR_1"
+	required_component = "COMBAT_COMPUTER_ARKSHIP"
+}

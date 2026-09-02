@@ -1,0 +1,53 @@
+# 覆盖 tech_space_construction（零重力工程）：technology_swap trigger 扩为"游牧 或 已点游牧传统开门"
+# 定居帝国（点传统后）自动获得游牧变体效果：+2 后勤舰（nomadic_constructor_limit_add = 2）
+tech_space_construction = {
+	cost = 0
+	area = engineering
+	tier = 0
+	category = { industry }
+	start_tech = yes
+
+	prereqfor_desc = {
+		custom = {
+			title = "TECH_UNLOCK_CONSTRUCTION_SHIP_CONSTRUCTION_TITLE"
+			desc = "TECH_UNLOCK_CONSTRUCTION_SHIP_CONSTRUCTION_DESC"
+		}
+		# used to separate the entries
+		custom = {
+			title = "TECH_UNLOCK_MINING_STATION_TITLE"
+			desc = "TECH_UNLOCK_MINING_STATION_DESC"
+		}
+		# used to separate the entries
+		custom = {
+			title = "TECH_UNLOCK_RESEARCH_STATION_TITLE"
+			desc = "TECH_UNLOCK_RESEARCH_STATION_DESC"
+		}
+	}
+
+	technology_swap = {
+		name = tech_nomads_space_construction
+		inherit_icon = yes
+		inherit_effects = no
+		trigger = {
+			OR = {
+				is_nomadic = yes
+				has_tradition = tr_nomadic_legacy_adopt
+			}
+		}
+		prereqfor_desc = {
+			custom = {
+				title = "TECH_UNLOCK_LOGISTIC_SHIP_CONSTRUCTION_TITLE"
+				desc = "TECH_UNLOCK_LOGISTIC_SHIP_CONSTRUCTION_DESC"
+			}
+		}
+		modifier = {
+			nomadic_constructor_limit_add = 2
+		}
+	}
+
+	ai_weight = {
+
+	}
+
+	## unlock construction ship, mining station, research station
+}

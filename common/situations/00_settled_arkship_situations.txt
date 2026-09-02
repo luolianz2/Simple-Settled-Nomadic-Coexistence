@@ -1,0 +1,159 @@
+# 局势：逐星
+# 总进度 1300，默认月推进 12（约 9 年），三个方案调整推进速度与代价
+# 阶段：开始(0-200) → 1(200) → 2(350) → 3(500) → 4(700) → 5(1000) → 完成(1300)
+# 科技在各阶段事件中发放（事件文件 settled_arkship_events.txt）
+settled_arkship_building = {
+	desc = settled_arkship_building_desc
+	picture = GFX_evt_waystation
+	category = neutral
+	situation_log_category = empire_concerns
+
+	on_start = {
+		situation_event = { id = settled_arkship.10 }
+	}
+
+	approach = {
+		name = settled_arkship_plan_normal
+		icon = GFX_situation_approach_balance_sheet
+		icon_background = GFX_situation_approach_bg_green
+		default = yes
+	}
+
+	approach = {
+		name = settled_arkship_plan_reduced
+		icon = GFX_situation_approach_minerals
+		icon_background = GFX_situation_approach_bg_yellow
+		on_select = {
+			custom_tooltip = settled_arkship_plan_reduced_speed_tt
+		}
+		modifier = {
+			planet_jobs_upkeep_mult = -0.2
+		}
+	}
+
+	approach = {
+		name = settled_arkship_plan_full_support
+		icon = GFX_situation_approach_fist
+		icon_background = GFX_situation_approach_bg_red
+		on_select = {
+			custom_tooltip = settled_arkship_plan_full_speed_tt
+		}
+		# 合金产出-10%：仅到达 2 阶段（350 点）前
+		triggered_modifier = {
+			potential = {
+				situation_progress < 350
+			}
+			modifier = {
+				planet_jobs_alloys_produces_mult = -0.1
+			}
+		}
+		# 人口增长速度-10%：仅 2、3 阶段之间（350-500 点）
+		triggered_modifier = {
+			potential = {
+				situation_progress >= 350
+				situation_progress < 500
+			}
+			modifier = {
+				bonus_pop_growth_mult = -0.1
+			}
+		}
+		# 岗位维护费+10%：3 阶段（500 点）之后
+		triggered_modifier = {
+			potential = {
+				situation_progress >= 500
+			}
+			modifier = {
+				planet_jobs_upkeep_mult = 0.1
+			}
+		}
+	}
+
+	stages = {
+		settled_arkship_stage_begin = {
+				icon = GFX_situation_stage_1
+			icon_background = GFX_situation_stage_frame_green
+			end = 200
+			modifier = {
+				planet_jobs_alloys_produces_mult = -0.2
+				country_unity_produces_mult = 0.05
+			}
+		}
+		settled_arkship_stage_1 = {
+				icon = GFX_situation_stage_2
+			icon_background = GFX_situation_stage_frame_green
+			end = 350
+			on_first_enter = {
+				situation_event = { id = settled_arkship.11 }
+			}
+			modifier = {
+				planet_jobs_alloys_produces_mult = -0.1
+				country_unity_produces_mult = 0.10
+			}
+		}
+		settled_arkship_stage_2 = {
+				icon = GFX_situation_stage_3
+			icon_background = GFX_situation_stage_frame_green
+			end = 500
+			on_first_enter = {
+				situation_event = { id = settled_arkship.12 }
+			}
+			modifier = {
+				bonus_pop_growth_mult = -0.4
+				country_unity_produces_mult = 0.15
+			}
+		}
+		settled_arkship_stage_3 = {
+				icon = GFX_situation_stage_4
+			icon_background = GFX_situation_stage_frame_green
+			end = 700
+			on_first_enter = {
+				situation_event = { id = settled_arkship.13 }
+			}
+			modifier = {
+				country_unity_produces_mult = 0.20
+			}
+		}
+		settled_arkship_stage_4 = {
+				icon = GFX_situation_stage_5
+			icon_background = GFX_situation_stage_frame_green
+			end = 1000
+			on_first_enter = {
+				situation_event = { id = settled_arkship.14 }
+			}
+			modifier = {
+				country_unity_produces_mult = 0.05
+				planet_jobs_upkeep_mult = 0.05
+			}
+		}
+		settled_arkship_stage_5 = {
+				icon = GFX_situation_stage_6
+			icon_background = GFX_situation_stage_frame_green
+			end = 1300
+			on_first_enter = {
+				situation_event = { id = settled_arkship.15 }
+			}
+			modifier = {
+				country_unity_produces_mult = 0.10
+				planet_jobs_upkeep_mult = 0.10
+			}
+		}
+	}
+
+	monthly_progress = {
+		base = 12
+		modifier = {
+			desc = settled_arkship_speed_reduced_desc
+			factor = 0.9
+			current_situation_approach = settled_arkship_plan_reduced
+		}
+		modifier = {
+			desc = settled_arkship_speed_full_desc
+			factor = 1.1
+			current_situation_approach = settled_arkship_plan_full_support
+		}
+	}
+
+	on_progress_complete = {
+		situation_event = { id = settled_arkship.16 }
+	}
+}

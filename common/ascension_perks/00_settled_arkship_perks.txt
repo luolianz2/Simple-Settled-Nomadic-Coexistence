@@ -1,0 +1,205 @@
+# 游牧专属飞升（点"游牧"传统闭门后解锁）
+# 效果数值沿用原版游牧变体，显示名带"(游牧)"与普通版区分
+# 键名前缀 settled_arkship_ 避免与原版冲突
+
+# 浪迹星涯：覆盖原版 ap_wanderlust（原版 potential 仅游牧可选，游历事件 nomads.4720 检查 has_ascension_perk = ap_wanderlust）
+# 覆盖后键不变：游牧帝国照常可选，点游牧传统闭门的定居帝国也可选；游历机制（事件链 nomads.4715 + flags）完全复用原版
+ap_wanderlust = {
+	potential = {
+		has_nomads_dlc = yes
+		NOT = {
+			has_ascension_perk = ap_wanderlust
+		}
+		OR = {
+			is_nomadic = yes
+			has_tradition = tr_nomadic_legacy_finish
+		}
+	}
+
+	on_enabled = {
+		custom_tooltip = ap_wanderlust_tooltip
+		hidden_effect = {
+			country_event = { id = nomads.4715 }
+		}
+	}
+
+	triggered_modifier = {
+		planet_max_districts_add = 1
+		leaders_upkeep_mult = -0.1
+	}
+
+	triggered_modifier = {
+		potential = {
+			OR = { #somehow, we need a redundancy here to not get the modifier when initially picking up the AP (even though it gets cleared on monthly tick)
+				has_country_flag = ancient_wonders_completed
+				has_country_flag = antique_threat_completed
+				has_country_flag = enclave_completed
+				has_country_flag = galactic_landmark_completed
+				has_country_flag = marauder_completed
+				has_country_flag = natural_spectacle_completed
+				has_country_flag = precursor_completed
+				has_country_flag = space_ecology_completed
+			}
+			calc_true_if = {
+				amount >= 4
+				OR = {
+					has_country_flag = ancient_wonders_completed
+					check_variable = { which = ancient_wonders_system_count value = 0 }
+				}
+				OR = {
+					has_country_flag = antique_threat_completed
+					check_variable = { which = antique_threat_system_count value = 0 }
+				}
+				OR = {
+					has_country_flag = enclave_completed
+					check_variable = { which = enclave_system_count value = 0 }
+				}
+				OR = {
+					has_country_flag = galactic_landmark_completed
+					check_variable = { which = galactic_landmark_system_count value = 0 }
+				}
+				OR = {
+					has_country_flag = marauder_completed
+					check_variable = { which = marauder_system_count value = 0 }
+				}
+				OR = {
+					has_country_flag = natural_spectacle_completed
+					check_variable = { which = natural_spectacle_system_count value = 0 }
+				}
+				OR = {
+					has_country_flag = precursor_completed
+					check_variable = { which = precursor_system_count value = 0 }
+				}
+				OR = {
+					has_country_flag = space_ecology_completed
+					check_variable = { which = space_ecology_system_count value = 0 }
+				}
+			}
+		}
+		planet_max_districts_add = 1
+		leaders_upkeep_mult = -0.1
+		tradition_cost_mult = -0.1
+	}
+
+	ai_weight = {
+		factor = 5
+		modifier = {
+			factor = 2
+			has_ethic = ethic_materialist
+		}
+		modifier = {
+			factor = 3
+			has_ethic = ethic_fanatic_materialist
+		}
+		modifier = {
+			factor = 0
+			is_xenophobe = yes
+		}
+		modifier = {
+			factor = 1.25
+			is_xenophile = yes
+		}
+	}
+}
+
+# 掌控自然(游牧)：原版 ap_mastery_of_nature 的游牧变体效果
+settled_arkship_mastery_nature = {
+	potential = {
+		has_tradition = tr_nomadic_legacy_finish
+		NOR = {
+			has_ascension_perk = settled_arkship_mastery_nature
+			has_ascension_perk = ap_mastery_of_nature
+			is_environmental_architects_empire = yes
+		}
+	}
+
+	modifier = {
+		arkship_harvest_resources_produces_mult = 0.5
+		ship_starbase_stockpile_collection_rate_mult = 0.10
+		add_attunement_the_instrument_of_desire = 30 # = 原版 @ascension_perk_attunement1
+	}
+
+	ai_weight = {
+		factor = 10
+	}
+}
+
+# 星际主权(游牧)：原版 ap_interstellar_dominion 的游牧变体效果
+settled_arkship_interstellar_dominion = {
+	potential = {
+		has_tradition = tr_nomadic_legacy_finish
+		NOR = {
+			has_ascension_perk = settled_arkship_interstellar_dominion
+			has_ascension_perk = ap_interstellar_dominion
+		}
+	}
+
+	modifier = {
+		megastructures_waystations_influence_cost_mult = -0.20
+		starbase_stockpile_capacity_mult = 0.15
+		shipsize_nomads_constructor_stockpile_capacity_mult = 0.15
+		add_attunement_the_eater_of_worlds = 30 # = 原版 @ascension_perk_attunement1
+	}
+
+	ai_weight = {
+		factor = 10
+	}
+}
+
+# 中央特权(游牧)：原版 ap_imperial_prerogative 的游牧变体效果
+settled_arkship_imperial_prerogative = {
+	potential = {
+		has_tradition = tr_nomadic_legacy_finish
+		NOR = {
+			has_ascension_perk = settled_arkship_imperial_prerogative
+			has_ascension_perk = ap_imperial_prerogative
+		}
+		is_megacorp = no
+	}
+
+	modifier = {
+		pop_cat_ruler_bonus_workforce_mult = 0.15
+		country_official_cap_add = 2
+	}
+
+	ai_weight = {
+		factor = 15
+	}
+}
+
+# 太空子民(游牧)：原版 ap_voidborn 的游牧变体效果
+settled_arkship_voidborn = {
+	potential = {
+		has_tradition = tr_nomadic_legacy_finish
+		is_void_dweller_empire = no
+		is_wilderness_empire = no
+		NOR = {
+			has_ascension_perk = settled_arkship_voidborn
+			has_ascension_perk = ap_voidborn
+		}
+	}
+
+	possible = {
+		OR = {
+			custom_tooltip = {
+				fail_text = "requires_technology_habitat_1"
+				has_technology = tech_habitat_1
+			}
+			custom_tooltip = {
+				fail_text = "requires_tech_arkship_tier_2"
+				has_technology = tech_arkship_tier_2
+			}
+		}
+	}
+
+	modifier = {
+		pc_ark_max_districts_add = 2
+		megastructures_arkships_cost_mult = -0.10
+		starbase_arkship_upgrades_cost_mult = -0.15
+		pc_ark_habitability = 0.2
+	}
+
+	ai_weight = {
+		factor = 10
+	}
+}
