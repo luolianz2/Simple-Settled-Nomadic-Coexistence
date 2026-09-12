@@ -108,7 +108,6 @@ settled_arkship_mastery_nature = {
 		has_tradition = tr_nomadic_legacy_finish
 		NOR = {
 			has_ascension_perk = settled_arkship_mastery_nature
-			has_ascension_perk = ap_mastery_of_nature
 			is_environmental_architects_empire = yes
 		}
 	}
@@ -130,7 +129,6 @@ settled_arkship_interstellar_dominion = {
 		has_tradition = tr_nomadic_legacy_finish
 		NOR = {
 			has_ascension_perk = settled_arkship_interstellar_dominion
-			has_ascension_perk = ap_interstellar_dominion
 		}
 	}
 
@@ -152,7 +150,6 @@ settled_arkship_imperial_prerogative = {
 		has_tradition = tr_nomadic_legacy_finish
 		NOR = {
 			has_ascension_perk = settled_arkship_imperial_prerogative
-			has_ascension_perk = ap_imperial_prerogative
 		}
 		is_megacorp = no
 	}
@@ -175,7 +172,6 @@ settled_arkship_voidborn = {
 		is_wilderness_empire = no
 		NOR = {
 			has_ascension_perk = settled_arkship_voidborn
-			has_ascension_perk = ap_voidborn
 		}
 	}
 
