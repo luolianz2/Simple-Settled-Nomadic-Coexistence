@@ -42,3 +42,94 @@ create_settled_arkship_effect = {
 		}
 	}
 }
+
+# 创建民用方舟（225 点选型"民用方舟"后，踏步者事件调用）
+create_settled_civilian_arkship_effect = {
+	capital_scope = {
+		save_event_target_as = settled_arkship_capital
+	}
+	create_fleet = {
+		name = NAME_SETTLED_ARKSHIP
+		effect = {
+			set_owner = prev
+			create_ship = {
+				name = NAME_SETTLED_ARKSHIP
+				design = "SETTLED_CIVILIAN_ARKSHIP_DESIGN"
+				effect = {
+					initialize_arkship_starbase_effect = yes
+					set_graphical_culture = civilian_arkship# 给这艘舰船指定外观套装
+					owner = {
+						create_leader = {
+							class = commander
+							name = random
+							species = owner_main_species
+							randomize_traits = no
+							traits = {
+								1 = random_common
+							}
+						}
+					}
+					fleet = {
+						set_leader = last_created_leader
+					}
+					colony = {
+						upgrade_colony_shelter = yes
+						generate_start_buildings_and_districts = yes
+						generate_start_pops = yes
+					}
+				}
+			}
+			set_location = {
+				target = event_target:settled_arkship_capital
+				distance = 0
+				angle = random
+			}
+		}
+	}
+}
+
+
+# 创建军事方舟（225 点选型"军事方舟"后，踏步者事件调用）
+create_settled_military_arkship_effect = {
+	capital_scope = {
+		save_event_target_as = settled_arkship_capital
+	}
+	create_fleet = {
+		name = NAME_SETTLED_ARKSHIP
+		effect = {
+			set_owner = prev
+			create_ship = {
+				name = NAME_SETTLED_ARKSHIP
+				design = "SETTLED_MILITARY_ARKSHIP_DESIGN"
+				effect = {
+					initialize_arkship_starbase_effect = yes
+					set_graphical_culture = military_arkship
+					owner = {
+						create_leader = {
+							class = commander
+							name = random
+							species = owner_main_species
+							randomize_traits = no
+							traits = {
+								1 = random_common
+							}
+						}
+					}
+					fleet = {
+						set_leader = last_created_leader
+					}
+					colony = {
+						upgrade_colony_shelter = yes
+						generate_start_buildings_and_districts = yes
+						generate_start_pops = yes
+					}
+				}
+			}
+			set_location = {
+				target = event_target:settled_arkship_capital
+				distance = 0
+				angle = random
+			}
+		}
+	}
+}

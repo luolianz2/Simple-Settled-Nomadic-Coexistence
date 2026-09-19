@@ -19,6 +19,7 @@ tradition_nomadic_legacy = {
 	}
 
 	ai_weight = {
-		factor = 1
+		# AI 不选择游牧传统树
+		factor = 0
 	}
 }

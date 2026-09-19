@@ -9,10 +9,12 @@ situation_event = {
 	title = settled_arkship.10.name
 	desc = settled_arkship.10.desc
 	picture = GFX_evt_waystation
-	is_triggered_only = yes
+	is_triggered_only = yes	
+	situation = this
 
 	option = {
 		name = settled_arkship.10.option
+		custom_tooltip = settled_arkship_stage_begin_tt
 	}
 }
 
@@ -22,10 +24,12 @@ situation_event = {
 	title = settled_arkship.11.name
 	desc = settled_arkship.11.desc
 	picture = GFX_evt_waystation
-	is_triggered_only = yes
+	is_triggered_only = yes	
+	situation = this
 
 	option = {
 		name = settled_arkship.11.option
+		custom_tooltip = settled_arkship_stage_1_tt
 	}
 }
 
@@ -35,27 +39,42 @@ situation_event = {
 	title = settled_arkship.12.name
 	desc = settled_arkship.12.desc
 	picture = GFX_evt_waystation
-	is_triggered_only = yes
+	is_triggered_only = yes	
+	situation = this
 
 	option = {
 		name = settled_arkship.12.option
+		custom_tooltip = settled_arkship_stage_2_tt
 	}
 }
 
-# 踏步者（到达 500 点：获得驿站 1 + 零重力工程，首都新增科研方舟）
+# 踏步者（到达 500 点：获得驿站 1 + 零重力工程，首都新增所选类型方舟）
 situation_event = {
 	id = settled_arkship.13
 	title = settled_arkship.13.name
 	desc = settled_arkship.13.desc
 	picture = GFX_evt_waystation
 	is_triggered_only = yes
+	situation = this
 
 	option = {
 		name = settled_arkship.13.option
+		custom_tooltip = settled_arkship_stage_3_tt
 		owner = {
 			give_technology = { tech = tech_waystation_1 message = no }
 			give_technology = { tech = tech_space_construction message = no }
-			create_settled_arkship_effect = yes
+		}
+		# 按 225 点"设计者"事件的选型创建对应方舟（未选则默认科研方舟）
+		if = {
+			limit = { has_situation_flag = settled_arkship_type_civilian }
+			owner = { create_settled_civilian_arkship_effect = yes }
+		}
+		else_if = {
+			limit = { has_situation_flag = settled_arkship_type_military }
+			owner = { create_settled_military_arkship_effect = yes }
+		}
+		else = {
+			owner = { create_settled_arkship_effect = yes }
 		}
 	}
 }
@@ -66,10 +85,12 @@ situation_event = {
 	title = settled_arkship.14.name
 	desc = settled_arkship.14.desc
 	picture = GFX_evt_waystation
-	is_triggered_only = yes
+	is_triggered_only = yes	
+	situation = this
 
 	option = {
 		name = settled_arkship.14.option
+		custom_tooltip = settled_arkship_stage_4_tt
 		owner = {
 			give_technology = { tech = tech_arkship_construction message = no }
 		}
@@ -82,10 +103,12 @@ situation_event = {
 	title = settled_arkship.15.name
 	desc = settled_arkship.15.desc
 	picture = GFX_evt_waystation
-	is_triggered_only = yes
+	is_triggered_only = yes	
+	situation = this
 
 	option = {
 		name = settled_arkship.15.option
+		custom_tooltip = settled_arkship_stage_5_tt
 		owner = {
 			give_technology = { tech = tech_civilian_arkship message = no }
 			give_technology = { tech = tech_science_arkship message = no }
@@ -103,7 +126,8 @@ situation_event = {
 	title = settled_arkship.16.name
 	desc = settled_arkship.16.desc
 	picture = GFX_evt_waystation
-	is_triggered_only = yes
+	is_triggered_only = yes	
+	situation = this
 
 	option = {
 		name = settled_arkship.16.option
@@ -117,5 +141,43 @@ situation_event = {
 			give_technology = { tech = tech_arkship_exodus_jump message = no }
 		}
 		destroy_situation = this
+	}
+}
+
+# 设计者（局势中途事件：进度 225 点时触发，选择方舟类型）
+# 由局势 on_monthly 每月尝试触发，trigger 检查进度与防重复 flag
+situation_event = {
+	id = settled_arkship.20
+	title = settled_arkship.20.name
+	desc = settled_arkship.20.desc
+	picture = GFX_evt_waystation
+	is_triggered_only = yes # 只允许被主动触发
+	situation = this
+
+	trigger = {
+		situation_progress >= 225
+		NOT = { has_situation_flag = settled_arkship_type_event_fired }
+	}
+
+	immediate = {
+		set_situation_flag = settled_arkship_type_event_fired
+	}
+
+	option = {
+		name = settled_arkship.20.option_science
+		custom_tooltip = settled_arkship.20.option_science_tt
+		set_situation_flag = settled_arkship_type_science
+	}
+
+	option = {
+		name = settled_arkship.20.option_civilian
+		custom_tooltip = settled_arkship.20.option_civilian_tt
+		set_situation_flag = settled_arkship_type_civilian
+	}
+
+	option = {
+		name = settled_arkship.20.option_military
+		custom_tooltip = settled_arkship.20.option_military_tt
+		set_situation_flag = settled_arkship_type_military
 	}
 }

@@ -7,9 +7,19 @@ settled_arkship_building = {
 	picture = GFX_evt_waystation
 	category = neutral
 	situation_log_category = empire_concerns
+	# 进度条完成端图标
+	complete_icon = GFX_situation_outcome_ascension
+	complete_icon_frame = GFX_situation_outcome_frame_green
 
 	on_start = {
 		situation_event = { id = settled_arkship.10 }
+	}
+
+	# 过程中事件：每月检查一次"设计者"（事件 trigger 判断进度 225 点与防重复 flag；未达成前不会触发）
+	on_monthly = {
+		events = {
+			settled_arkship.20
+		}
 	}
 
 	approach = {
@@ -17,6 +27,9 @@ settled_arkship_building = {
 		icon = GFX_situation_approach_balance_sheet
 		icon_background = GFX_situation_approach_bg_green
 		default = yes
+		on_select = {
+			custom_tooltip = settled_arkship_plan_normal_desc
+		}
 	}
 
 	approach = {
@@ -154,6 +167,7 @@ settled_arkship_building = {
 	}
 
 	on_progress_complete = {
+		custom_tooltip = settled_arkship_finish_tt
 		situation_event = { id = settled_arkship.16 }
 	}
 }

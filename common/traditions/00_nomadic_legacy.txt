@@ -3,6 +3,7 @@
 # 开门：游牧（启动"逐星"局势）
 tr_nomadic_legacy_adopt = {
 	possible = {
+		is_ai = no
 		is_nomadic = no
 	}
 	# 常驻国家修正：全帝国方舟宜居 +100%
@@ -21,6 +22,7 @@ tr_nomadic_legacy_adopt = {
 # 右1：运行储备（解锁法令-炽燃）
 tr_nomadic_legacy_1 = {
 	possible = {
+		is_ai = no
 		is_nomadic = no
 	}
 	custom_tooltip = tr_nomadic_legacy_1_effects
@@ -29,6 +31,7 @@ tr_nomadic_legacy_1 = {
 # 右2：飞往无垠（每月凝聚力+10%、闪避+5、亚光速航速+10%）（需先点右1运行储备）
 tr_nomadic_legacy_2 = {
 	possible = {
+		is_ai = no
 		is_nomadic = no
 		has_tradition = tr_nomadic_legacy_1
 	}
@@ -42,16 +45,20 @@ tr_nomadic_legacy_2 = {
 # 左1：移动补给站（采集资源+20%）
 tr_nomadic_legacy_4 = {
 	possible = {
+		is_ai = no
 		is_nomadic = no
 	}
 	modifier = {
 		arkship_harvest_resources_produces_mult = 0.2
 	}
+	# with_modifiers：保留 modifier 自动文本并附加效果说明（防引擎丢弃无效 modifier 键时无显示）
+	custom_tooltip_with_modifiers = tr_nomadic_legacy_4_effects
 }
 
 # 中2：铸造者（最大区划数+1、劳工人口产出+10%）（需先点左1移动补给站）
 tr_nomadic_legacy_3 = {
 	possible = {
+		is_ai = no
 		is_nomadic = no
 		has_tradition = tr_nomadic_legacy_4
 	}
@@ -64,6 +71,7 @@ tr_nomadic_legacy_3 = {
 # 左2：合约协定（解锁接收合约功能）（需先点左1移动补给站）
 tr_nomadic_legacy_5 = {
 	possible = {
+		is_ai = no
 		is_nomadic = no
 		has_tradition = tr_nomadic_legacy_4
 	}
@@ -73,6 +81,7 @@ tr_nomadic_legacy_5 = {
 # 闭门（研究速度+10%、飞升槽+1、解锁游牧专属飞升）
 tr_nomadic_legacy_finish = {
 	possible = {
+		is_ai = no
 		is_nomadic = no
 	}
 	modifier = {

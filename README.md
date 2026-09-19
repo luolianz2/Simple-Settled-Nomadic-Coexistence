@@ -20,7 +20,7 @@
 
 ### 逐星局势
 
-- 采纳"游牧"传统后启动，随阶段发放游牧科技与第一艘科研方舟
+- 采纳"游牧"传统后启动，随阶段发放游牧科技与第一艘方舟（方舟类型可在局势中途选择）
 
 ### 合约玩法
 
@@ -32,3 +32,41 @@
 - 本模组制作者能力和精力有限，不能进行详尽的测试，如果发现任何问题，请提交 Issues
 - 本模组修改了方舟舰、驿站相关科技、后勤舰以及部分原版游牧机制（合约接包/发包资格、游历推进事件），不建议与同样定位的模组同时加载
 - 原版游牧专属事件与起源保持游牧限定，定居帝国不会触发
+
+---
+
+# Simple Settled-Nomadic Coexistence (SSNC)
+
+## Overview
+
+- A Stellaris mod that lightly adapts the settled start, allowing empires to pursue nomadic gameplay while remaining settled
+- Since it is built on the settled playstyle, the vanilla nomadic "Operational Reserves" situation does not exist; its bonuses have been moved into this mod's nomadic tradition tree
+- This mod requires the Nomads DLC
+
+## Features
+
+### Nomadic Tradition Tree (available to non-nomadic empires)
+
+- Starts the Starward situation
+- Provides nomadic bonuses
+
+### Settled-Nomadic Exclusive Ascension Perks (available after finishing the tradition tree)
+
+- Wanderlust
+- Mastery of Nature (Nomads), Interstellar Dominion (Nomads), Imperial Prerogative (Nomads), Voidborne (Nomads): effects taken from each perk's vanilla nomadic variant
+
+### Starward Situation
+
+- Starts after adopting the "Nomadic" tradition; grants nomadic technologies and your first arkship in stages (the arkship type can be chosen mid-situation)
+
+### Contracts
+
+- Settled empires can issue contracts as usual
+- After taking the "Contract Charter" tradition of the nomadic tradition tree, you can accept contracts and carry out contract missions issued by other empires
+
+## Notes
+
+- This mod's author has limited time and energy and cannot test exhaustively. If you find any issues, please submit an Issue
+- This mod modifies arkships, waystation-related technologies, logistic ships, and some vanilla nomadic mechanics (contract acceptance/issuance eligibility, exploration progression events); loading it alongside mods with the same focus is not recommended
+- Vanilla nomadic-exclusive events and origins remain nomadic-only; settled empires will not trigger them
+
