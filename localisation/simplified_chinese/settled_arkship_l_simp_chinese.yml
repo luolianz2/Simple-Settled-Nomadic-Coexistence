@@ -26,7 +26,7 @@
  settled_arkship_building_type: "逐星"
  settled_arkship_building_desc: "帝国正倾全国之力启动方舟工程，每一份资源都在为远航积攒力量。"
  settled_arkship_building_monthly_change_tooltip: "逐星工程持续推进。"
- settled_arkship_finish_tt: "逐星工程完成：获得剩余游牧科技。"
+ settled_arkship_finish_tt: "逐星工程完成"
  settled_arkship_plan_normal: "按计划进行"
  settled_arkship_plan_normal_desc: "一切正按计划进行。"
  settled_arkship_plan_reduced: "减少资源消耗"

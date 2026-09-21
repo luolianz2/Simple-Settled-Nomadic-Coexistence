@@ -25,7 +25,7 @@
  settled_arkship_building_type: "Starward"
  settled_arkship_building_desc: "The empire has thrown its full might behind the arkship project. Every resource is being marshalled for the voyage ahead."
  settled_arkship_building_monthly_change_tooltip: "The Starward project progresses."
- settled_arkship_finish_tt: "Starward project complete: the remaining nomadic technologies are granted."
+ settled_arkship_finish_tt: "Starward project complete."
  settled_arkship_plan_normal: "Follow the Plan"
  settled_arkship_plan_normal_desc: "Everything proceeds according to plan."
  settled_arkship_plan_reduced: "Cut Costs"
