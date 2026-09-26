@@ -1,0 +1,148 @@
+# 模组覆盖：采集自动化低权重修正 0.05 -> 0.5
+# 原版 0.05 系数使未勘探/空目标/驿站星系目标最终权重仅 0.75，疑似被引擎丢弃
+# 0.5 使最终权重为 7.5，仍远低于已勘探目标（通常 75 以上），保留低优先级设计意图
+# 影响动作：arkship_harvest_resources、arkship_strip_mine、logistic_harvest_resources
+
+# AI weight modifiers for the harvest automation options.
+# Used by arkship_harvest_resources, arkship_strip_mine, and logistic_harvest_resources (the actions that expose the options).
+# Scope: planet (this = target planet, from = acting fleet)
+# Checking automation settings first so we early out for performance.
+
+# Unsurveyed Targets allowed: low weight, prefer surveying first
+modifier = {
+	factor = 0.5
+	FROM = {
+		has_automation_setting = unsurveyed_targets
+	}
+	is_surveyed = {
+		who = FROM.controller
+		status = no
+	}
+}
+# Unsurveyed Targets not allowed: block
+modifier = {
+	factor = 0
+	FROM = {
+		NOT = {
+			has_automation_setting = unsurveyed_targets
+		}
+	}
+	is_surveyed = {
+		who = FROM.controller
+		status = no
+	}
+}
+# Empty Targets allowed: low weight, deposits worked by a research station are not harvested
+modifier = {
+	factor = 0.5
+	NOT = {
+		has_deposit_for = shipclass_mining_station
+	}
+	FROM = {
+		has_automation_setting = empty_targets
+	}
+}
+# Empty Targets not allowed: block
+modifier = {
+	factor = 0
+	NOT = {
+		has_deposit_for = shipclass_mining_station
+	}
+	FROM = {
+		NOT = {
+			has_automation_setting = empty_targets
+		}
+	}
+}
+# Waystation Systems allowed: low weight where we own a waystation
+modifier = {
+	factor = 0.5
+	FROM = {
+		has_automation_setting = waystation_systems
+	}
+	solar_system = {
+		any_starbase_in_system = {
+			is_waystation_starbase = yes
+			owner? = {
+				is_same_value = FROM.controller
+			}
+		}
+	}
+}
+# Waystation Systems not allowed: block where we own a waystation
+modifier = {
+	factor = 0
+	FROM = {
+		NOT = {
+			has_automation_setting = waystation_systems
+		}
+	}
+	solar_system = {
+		any_starbase_in_system = {
+			is_waystation_starbase = yes
+			owner? = {
+				is_same_value = FROM.controller
+			}
+		}
+	}
+}
+# Friendly Systems not allowed: block systems owned by a non-hostile empire, unless we hold harvesting rights there.
+# No communications check here, so this and the hostile block together cover every owned system. An owner we have
+# not met has no attitude towards us, so it is not hostile and belongs in this half.
+modifier = {
+	factor = 0
+	FROM = {
+		NOT = {
+			has_automation_setting = friendly_systems
+		}
+	}
+	space_owner? = {
+		NOT = {
+			is_hostile_to = FROM.controller
+		}
+	}
+	# NOT = {
+	# 	has_harvesting_rights_trigger = {
+	# 		NOMAD = FROM.controller
+	# 	}
+	# }
+}
+# Hostile Systems not allowed: block owned systems that are hostile, unless we hold harvesting rights there
+modifier = {
+	factor = 0
+	FROM = {
+		NOT = {
+			has_automation_setting = hostile_systems
+		}
+	}
+	space_owner? = {
+		is_hostile_to = FROM.controller
+	}
+	# NOT = {
+	# 	has_harvesting_rights_trigger = {
+	# 		NOMAD = FROM.controller
+	# 	}
+	# }
+}
+# # Harvesting Rights not allowed: block systems whose owner granted us an agreement
+# modifier = {
+# 	factor = 0
+# 	FROM = {
+# 		NOT = {
+# 			has_automation_setting = harvesting_rights
+# 		}
+# 	}
+# 	has_harvesting_rights_trigger = {
+# 		NOMAD = FROM.controller
+# 	}
+# }
+# # Harvesting Rights selected: prefer systems whose owner granted us an agreement
+# modifier = {
+# 	factor = @ai_action_weight_factor_2
+# 	FROM = {
+# 		has_automation_setting = harvesting_rights
+# 	}
+# 	has_harvesting_rights_trigger = {
+# 		NOMAD = FROM.controller
+# 	}
+# }

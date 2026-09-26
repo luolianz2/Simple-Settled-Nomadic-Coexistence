@@ -1,0 +1,75 @@
+# 模组覆盖：有态度惩罚的有主星系的采集低权重修正 0.05 -> 0.5
+# 原版 0.05 使权重仅 0.75，疑似被引擎丢弃，导致友好星系等选项效果被削弱
+# 影响动作：arkship_harvest_resources、logistic_harvest_resources、arkship_strip_mine、arkship_reprocess_planet
+
+# Shared AI weight modifiers for harvest resource scripted actions.
+# Used by arkship_harvest_resources, logistic_harvest_resources, arkship_strip_mine, and arkship_reprocess_planet.
+# Scope: planet (this = target planet, from = acting fleet)
+
+modifier = {
+	factor = value:arkship_harvest_resource_ai_weight_value #prefer surveyed planets, scaled by their value
+	is_surveyed = {
+		who = FROM.controller
+		status = yes
+	}
+}
+modifier = {
+	factor = @ai_action_weight_100 #strongly prioritize planets that are targets of an active harvest contract
+	is_target_of_harvest_contract = {
+		COUNTRY = FROM.controller
+	}
+}
+# Prefer planets whose resource the country is low on
+modifier = {
+	factor = @ai_low_resource_harvest_factor #low on exotic gases, prioritize gas giants and toxic worlds
+	OR = {
+		is_planet_class = pc_gas_giant
+		is_planet_class = pc_toxic
+	}
+	FROM.controller = {
+		resource_stockpile_compare = {
+			resource = exotic_gases
+			value < @ai_low_resource_stockpile
+		}
+	}
+}
+modifier = {
+	factor = @ai_low_resource_harvest_factor #low on rare crystals, prioritize frozen worlds
+	is_planet_class = pc_frozen
+	FROM.controller = {
+		resource_stockpile_compare = {
+			resource = rare_crystals
+			value < @ai_low_resource_stockpile
+		}
+	}
+}
+modifier = {
+	factor = @ai_low_resource_harvest_factor #low on volatile motes, prioritize molten worlds
+	is_planet_class = pc_molten
+	FROM.controller = {
+		resource_stockpile_compare = {
+			resource = volatile_motes
+			value < @ai_low_resource_stockpile
+		}
+	}
+}
+# Discourage harvesting in systems that are owned by friendly countries or would cause an opinion penalty
+modifier = {
+	factor = 0.5
+	NOT = {
+		exempt_from_harvest_resources_opinion_reduction_trigger = {
+			NOMAD = FROM.controller
+		}
+	}
+	space_owner? = {
+		OR = {
+			benefits_from_waystation_network = {
+				NOMAD = FROM.controller
+				SYSTEM_OWNER = this
+			}
+			NOT = {
+				is_hostile_to = FROM.controller
+			}
+		}
+	}
+}
