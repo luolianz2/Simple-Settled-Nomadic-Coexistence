@@ -1,7 +1,4 @@
-# 简单定居游牧共存（SSNC）
-
-## 简介
-
+# 简介
 - 这是一个群星模组，对初始选择为定居的帝国做了简单适配，使其可在定居的同时进行游牧玩法
 - 由于基于定居进行修改，原版游牧的运行储备局势将不存在，其增益移入本模组的游牧传统树
 - 本模组依赖 Nomads DLC
@@ -32,6 +29,8 @@
 - 本模组制作者能力和精力有限，不能进行详尽的测试，如果发现任何问题，请提交 Issues
 - 本模组修改了方舟舰、驿站相关科技、后勤舰以及部分原版游牧机制（合约接包/发包资格、游历推进事件），不建议与同样定位的模组同时加载
 - 原版游牧专属事件与起源保持游牧限定，定居帝国不会触发
+- ai无法选择游牧传统
+- 修复了后勤舰采集一段时间资源后待机不动的问题
 
 ---
 
@@ -69,4 +68,6 @@
 - This mod's author has limited time and energy and cannot test exhaustively. If you find any issues, please submit an Issue
 - This mod modifies arkships, waystation-related technologies, logistic ships, and some vanilla nomadic mechanics (contract acceptance/issuance eligibility, exploration progression events); loading it alongside mods with the same focus is not recommended
 - Vanilla nomadic-exclusive events and origins remain nomadic-only; settled empires will not trigger them
+- AI cannot pick the nomadic tradition tree
+- Fixed the issue of logistic ships going idle after harvesting resources for a while
 
