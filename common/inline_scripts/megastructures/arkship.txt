@@ -45,8 +45,15 @@ potential = {
 }
 
 possible = {
-	fromfrom = {
-		is_arkship_fleet = yes
+	# Synthetic Fertility empires cannot build arkships until they have droids
+	custom_tooltip = {
+		fail_text = "ROBOTS_CANNOT_COLONIZE"
+		from = {
+			OR = {
+				NOT = { has_origin = origin_synthetic_fertility }
+				has_country_flag = origin_synthetic_fertility_droids
+			}
+		}
 	}
 }
 
@@ -55,6 +62,21 @@ on_build_complete = {
 		TYPE = $SHIP_SIZE$
 		OWNER = from
 		LOCATION = fromfrom
+	}
+	from = {
+		if = {
+			limit = {
+				has_origin = origin_synthetic_fertility
+				NOT = { has_country_flag = synthetics_traditions_unlocked }
+			}
+			every_owned_colony = {# 选择最新方舟殖民地
+				limit = {
+					is_planet_class = pc_ark
+					fleet = { is_same_value = last_created_fleet }
+				}
+				colony_event = { id = machine_age.3130 }
+			}
+		}
 	}
 	remove_megastructure = fromfrom
 	from = {

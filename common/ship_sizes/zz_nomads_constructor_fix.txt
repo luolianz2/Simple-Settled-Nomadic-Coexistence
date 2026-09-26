@@ -49,7 +49,6 @@ nomads_constructor = {
 	required_component_set = "ftl_components"
 	required_component_set = "thruster_components"
 	required_component_set = "sensor_components"
-	required_component_set = "science_cloaking_components"	# PF新增
 	valid_target_aggressive_stance = no
 	auto_upgrade = yes
 

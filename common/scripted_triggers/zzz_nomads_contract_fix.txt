@@ -12,7 +12,15 @@ can_accept_contracts_trigger = {
 		has_country_flag = forever_cruise_mutiny
 	}
 	#Subjects
-	NOT = { any_agreement = { has_term_value = { term = subject_diplomacy value = subject_can_not_do_diplomacy } } }
+	NAND = {
+		is_subject = yes
+		any_agreement = {
+			has_term_value = {
+				term = subject_diplomacy
+				value = subject_can_not_do_diplomacy
+			}
+		}
+	}
 	#Inwards Perfection
 	NOT = { has_valid_civic = civic_inwards_perfection }
 	#Genocidals
@@ -37,7 +45,16 @@ can_issue_contracts_trigger = {
 			has_communications = prev
 		}
 	}
-	NOT = { any_agreement = { has_term_value = { term = subject_diplomacy value = subject_can_not_do_diplomacy } } }
+	#Subjects
+	NAND = {
+		is_subject = yes
+		any_agreement = {
+			has_term_value = {
+				term = subject_diplomacy
+				value = subject_can_not_do_diplomacy
+			}
+		}
+	}
 }
 
 # 合约运营方科技判定覆盖（原版 09_scripted_triggers_nomads.txt）

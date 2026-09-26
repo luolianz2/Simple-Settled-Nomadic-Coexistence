@@ -24,7 +24,7 @@ ap_wanderlust = {
 	}
 
 	triggered_modifier = {
-		planet_max_districts_add = 1
+		planet_artificial_max_districts_add = 1
 		leaders_upkeep_mult = -0.1
 	}
 
@@ -76,7 +76,7 @@ ap_wanderlust = {
 				}
 			}
 		}
-		planet_max_districts_add = 1
+		planet_artificial_max_districts_add = 1
 		leaders_upkeep_mult = -0.1
 		tradition_cost_mult = -0.1
 	}

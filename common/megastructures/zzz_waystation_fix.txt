@@ -122,11 +122,11 @@ waystation_megastructure = {
 							}
 							has_intel = {
 								who = root.owner
-								intel = intel_economy_systems_high
+								intel = intel_economy_deposits
 							}
 							has_stale_intel = {
 								who = root.owner
-								intel = intel_economy_systems_high
+								intel = intel_economy_deposits
 							}
 						}
 					}
@@ -220,54 +220,17 @@ waystation_megastructure = {
 			}
 		}
 
-		# Completely block when at 200% starbase capacity
+		# A Build Waystation contract target is exempt, since the obligation must stay buildable over the cap.
 		modifier = {
-			factor = 0
-			from = {
-				used_starbase_capacity_percent >= 2.0
-			}
-		}
-
-		# Completely block when at 50% starbase capacity within first 10 years
-		modifier = {
-			factor = 0
-			years_passed <= 10
 			from = {
 				used_starbase_capacity_percent >= 0.5
 			}
-		}
-
-		# Completely block when at 125% starbase capacity within first 20 years
-		modifier = {
-			factor = 0
-			years_passed <= 20
-			from = {
-				used_starbase_capacity_percent >= 1.25
+			NOT = {
+				is_target_of_build_waystation_contract = {
+					COUNTRY = from
+				}
 			}
-		}
-
-		# Very strongly discourage building when over 150% starbase capacity
-		modifier = {
-			factor = 0.1
-			from = {
-				used_starbase_capacity_percent >= 1.50
-			}
-		}
-
-		# Strongly discourage building when over 125% starbase capacity
-		modifier = {
-			factor = 0.1
-			from = {
-				used_starbase_capacity_percent >= 1.25
-			}
-		}
-
-		# Reduce desire when already at or above capacity
-		modifier = {
-			factor = 0.5
-			from = {
-				used_starbase_capacity_percent >= 1
-			}
+			factor = from.value:waystation_capacity_factor
 		}
 
 		# Prefer systems adjacent to existing waystations (extend the wayline network)
@@ -281,6 +244,31 @@ waystation_megastructure = {
 					}
 				}
 			}
+		}
+
+		modifier = {
+			factor = 1.5
+			any_system_planet = {
+				is_colony = yes
+				pop_amount >= 2500
+			}
+		}
+
+		modifier = {
+			factor = 1.5
+			nomad_strategic_ftl_junction = yes
+		}
+
+		# Every waystation we hold makes a fresh low-value wayline less attractive.
+		modifier = {
+			nomad_new_low_value_wayline_site = yes
+			factor = from.value:waystation_expansion_factor|COUNT|num_owned_waystations|
+		}
+
+		# Develop the waystations we hold that have no modules before expanding, unless this site is high value.
+		modifier = {
+			nomad_high_value_waystation_site = no
+			factor = from.value:waystation_expansion_factor|COUNT|num_owned_undeveloped_waystations|
 		}
 
 		# Bonus for systems with colonies (trade module benefit)
