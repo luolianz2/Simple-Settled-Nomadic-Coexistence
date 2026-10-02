@@ -88,10 +88,7 @@ nomads_constructor = {
 	}
 
 	potential_country = {
-		OR = {
-			is_nomadic = yes
-			has_tradition = tr_nomadic_legacy_adopt
-		}
+		is_nomadic_or_traditional = yes
 		OR = {
 			has_technology = tech_hyper_drive_1
 			has_technology = tech_hyper_drive_2

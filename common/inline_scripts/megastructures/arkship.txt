@@ -33,10 +33,7 @@ resources = {
 }
 
 potential = {
-	OR = {
-		is_nomadic = yes
-		has_tradition = tr_nomadic_legacy_adopt
-	}
+	is_nomadic_or_traditional = yes
 	has_technology = tech_arkship_construction
 	has_technology = $TECHNOLOGY$
 	from = {

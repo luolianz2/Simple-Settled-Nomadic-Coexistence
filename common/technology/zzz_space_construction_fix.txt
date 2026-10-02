@@ -29,10 +29,7 @@ tech_space_construction = {
 		inherit_icon = yes
 		inherit_effects = no
 		trigger = {
-			OR = {
-				is_nomadic = yes
-				has_tradition = tr_nomadic_legacy_adopt
-			}
+			is_nomadic_or_traditional = yes
 		}
 		prereqfor_desc = {
 			custom = {

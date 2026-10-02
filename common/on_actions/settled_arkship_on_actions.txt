@@ -5,3 +5,10 @@ on_entering_system = {
 		settled_arkship.200
 	}
 }
+
+# 全局安装标记：供第三方模组检测 SSNC 是否加载（新开档时设置一次，多人/单机均触发）
+on_game_start = {
+	events = {
+		settled_arkship.30
+	}
+}

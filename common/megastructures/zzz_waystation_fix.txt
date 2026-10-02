@@ -57,10 +57,7 @@ waystation_megastructure = {
 	prerequisites = { "tech_waystation_1" }
 
 	potential = {
-		OR = {
-			is_nomadic = yes
-			has_tradition = tr_nomadic_legacy_adopt
-		}
+		is_nomadic_or_traditional = yes
 		# AI Arkships may only build waystations if all contracts are Build Waystation,
 		# or if no constructor ships exist to do it instead.
 		if = {

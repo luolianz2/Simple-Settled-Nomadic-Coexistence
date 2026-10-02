@@ -2,10 +2,7 @@
 # 原版 give_technology 检查 potential，限制会挡住定居帝国
 tech_waystation_1 = {
 	potential = {
-		OR = {
-			is_nomadic = yes
-			has_tradition = tr_nomadic_legacy_adopt
-		}
+		is_nomadic_or_traditional = yes
 	}
 
 	cost = 0

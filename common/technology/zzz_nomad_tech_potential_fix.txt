@@ -4,10 +4,7 @@
 
 tech_arkship_construction = {
 	potential = {
-		OR = {
-			is_nomadic = yes
-			has_tradition = tr_nomadic_legacy_adopt
-		}
+		is_nomadic_or_traditional = yes
 	}
 
 	area = engineering
@@ -33,8 +30,7 @@ tech_arkship_construction = {
 	weight_modifier = {
 		modifier = {
 			factor = 0
-			is_nomadic = no
-			NOT = { has_tradition = tr_nomadic_legacy_adopt }
+			NOT = { is_nomadic_or_traditional = yes }
 		}
 		factor = 1000
 	}
@@ -49,10 +45,7 @@ tech_arkship_construction = {
 
 tech_arkship_tier_2 = {
 	potential = {
-		OR = {
-			is_nomadic = yes
-			has_tradition = tr_nomadic_legacy_adopt
-		}
+		is_nomadic_or_traditional = yes
 	}
 
 	area = engineering
@@ -79,8 +72,7 @@ tech_arkship_tier_2 = {
 	weight_modifier = {
 		modifier = {
 			factor = 0
-			is_nomadic = no
-			NOT = { has_tradition = tr_nomadic_legacy_adopt }
+			NOT = { is_nomadic_or_traditional = yes }
 		}
 		modifier = {
 			factor = 5
@@ -98,10 +90,7 @@ tech_arkship_tier_2 = {
 
 tech_arkship_tier_3 = {
 	potential = {
-		OR = {
-			is_nomadic = yes
-			has_tradition = tr_nomadic_legacy_adopt
-		}
+		is_nomadic_or_traditional = yes
 	}
 
 	area = engineering
@@ -128,8 +117,7 @@ tech_arkship_tier_3 = {
 	weight_modifier = {
 		modifier = {
 			factor = 0
-			is_nomadic = no
-			NOT = { has_tradition = tr_nomadic_legacy_adopt }
+			NOT = { is_nomadic_or_traditional = yes }
 		}
 		modifier = {
 			factor = 5
@@ -151,10 +139,7 @@ tech_arkship_tier_3 = {
 
 tech_civilian_arkship = {
 	potential = {
-		OR = {
-			is_nomadic = yes
-			has_tradition = tr_nomadic_legacy_adopt
-		}
+		is_nomadic_or_traditional = yes
 	}
 
 	area = society
@@ -178,8 +163,7 @@ tech_civilian_arkship = {
 	weight_modifier = {
 		modifier = {
 			factor = 0
-			is_nomadic = no
-			NOT = { has_tradition = tr_nomadic_legacy_adopt }
+			NOT = { is_nomadic_or_traditional = yes }
 		}
 		modifier = {
 			factor = 5
@@ -205,10 +189,7 @@ tech_civilian_arkship = {
 
 tech_science_arkship = {
 	potential = {
-		OR = {
-			is_nomadic = yes
-			has_tradition = tr_nomadic_legacy_adopt
-		}
+		is_nomadic_or_traditional = yes
 	}
 
 	area = physics
@@ -232,8 +213,7 @@ tech_science_arkship = {
 	weight_modifier = {
 		modifier = {
 			factor = 0
-			is_nomadic = no
-			NOT = { has_tradition = tr_nomadic_legacy_adopt }
+			NOT = { is_nomadic_or_traditional = yes }
 		}
 		modifier = {
 			factor = 5
@@ -259,10 +239,7 @@ tech_science_arkship = {
 
 tech_military_arkship = {
 	potential = {
-		OR = {
-			is_nomadic = yes
-			has_tradition = tr_nomadic_legacy_adopt
-		}
+		is_nomadic_or_traditional = yes
 	}
 
 	area = engineering
@@ -289,8 +266,7 @@ tech_military_arkship = {
 	weight_modifier = {
 		modifier = {
 			factor = 0
-			is_nomadic = no
-			NOT = { has_tradition = tr_nomadic_legacy_adopt }
+			NOT = { is_nomadic_or_traditional = yes }
 		}
 		modifier = {
 			factor = 5
@@ -317,10 +293,7 @@ tech_military_arkship = {
 # Arkship Spinal Mount Technologies
 tech_arkship_planetary_refinery = {
 	potential = {
-		OR = {
-			is_nomadic = yes
-			has_tradition = tr_nomadic_legacy_adopt
-		}
+		is_nomadic_or_traditional = yes
 	}
 
 	area = engineering
@@ -338,8 +311,7 @@ tech_arkship_planetary_refinery = {
 		weight_modifier = {
 		modifier = {
 			factor = 0
-			is_nomadic = no
-			NOT = { has_tradition = tr_nomadic_legacy_adopt }
+			NOT = { is_nomadic_or_traditional = yes }
 		}
 		modifier = {
 			factor = 2
@@ -377,10 +349,7 @@ tech_arkship_planetary_refinery = {
 
 tech_arkship_stellar_igniter = {
 	potential = {
-		OR = {
-			is_nomadic = yes
-			has_tradition = tr_nomadic_legacy_adopt
-		}
+		is_nomadic_or_traditional = yes
 	}
 
 	area = physics
@@ -405,8 +374,7 @@ tech_arkship_stellar_igniter = {
 	weight_modifier = {
 		modifier = {
 			factor = 0
-			is_nomadic = no
-			NOT = { has_tradition = tr_nomadic_legacy_adopt }
+			NOT = { is_nomadic_or_traditional = yes }
 		}
 		modifier = {
 			factor = 2
@@ -432,10 +400,7 @@ tech_arkship_stellar_igniter = {
 
 tech_arkship_system_scanner = {
 	potential = {
-		OR = {
-			is_nomadic = yes
-			has_tradition = tr_nomadic_legacy_adopt
-		}
+		is_nomadic_or_traditional = yes
 	}
 
 	area = physics
@@ -461,8 +426,7 @@ tech_arkship_system_scanner = {
 	weight_modifier = {
 		modifier = {
 			factor = 0
-			is_nomadic = no
-			NOT = { has_tradition = tr_nomadic_legacy_adopt }
+			NOT = { is_nomadic_or_traditional = yes }
 		}
 		modifier = {
 			factor = 2
@@ -500,10 +464,7 @@ tech_arkship_system_scanner = {
 
 tech_arkship_exodus_jump = {
 	potential = {
-		OR = {
-			is_nomadic = yes
-			has_tradition = tr_nomadic_legacy_adopt
-		}
+		is_nomadic_or_traditional = yes
 	}
 
 	area = physics
@@ -521,8 +482,7 @@ tech_arkship_exodus_jump = {
 		weight_modifier = {
 		modifier = {
 			factor = 0
-			is_nomadic = no
-			NOT = { has_tradition = tr_nomadic_legacy_adopt }
+			NOT = { is_nomadic_or_traditional = yes }
 		}
 		modifier = {
 			factor = 2
@@ -550,10 +510,7 @@ tech_arkship_exodus_jump = {
 
 tech_nomads_mechanized_mining = {
 	potential = {
-		OR = {
-			is_nomadic = yes
-			has_tradition = tr_nomadic_legacy_adopt
-		}
+		is_nomadic_or_traditional = yes
 	}
 
 	cost = 0
@@ -572,10 +529,7 @@ tech_nomads_mechanized_mining = {
 
 tech_waystation_2 = {
 	potential = {
-		OR = {
-			is_nomadic = yes
-			has_tradition = tr_nomadic_legacy_adopt
-		}
+		is_nomadic_or_traditional = yes
 	}
 
 	area = engineering
@@ -618,8 +572,7 @@ tech_waystation_2 = {
 	weight_modifier = {
 		modifier = {
 			factor = 0
-			is_nomadic = no
-			NOT = { has_tradition = tr_nomadic_legacy_adopt }
+			NOT = { is_nomadic_or_traditional = yes }
 		}
 		modifier = {
 			factor = 0.1
@@ -663,10 +616,7 @@ tech_waystation_2 = {
 
 tech_waystation_3 = {
 	potential = {
-		OR = {
-			is_nomadic = yes
-			has_tradition = tr_nomadic_legacy_adopt
-		}
+		is_nomadic_or_traditional = yes
 	}
 
 	area = engineering
@@ -701,8 +651,7 @@ tech_waystation_3 = {
 	weight_modifier = {
 		modifier = {
 			factor = 0
-			is_nomadic = no
-			NOT = { has_tradition = tr_nomadic_legacy_adopt }
+			NOT = { is_nomadic_or_traditional = yes }
 		}
 		modifier = {
 			factor = 0.1
@@ -749,10 +698,7 @@ tech_waystation_3 = {
 
 tech_planetary_engineering = {
 	potential = {
-		OR = {
-			is_nomadic = yes
-			has_tradition = tr_nomadic_legacy_adopt
-		}
+		is_nomadic_or_traditional = yes
 	}
 
 	area = engineering
@@ -776,8 +722,7 @@ tech_planetary_engineering = {
 	weight_modifier = {
 		modifier = {
 			factor = 0
-			is_nomadic = no
-			NOT = { has_tradition = tr_nomadic_legacy_adopt }
+			NOT = { is_nomadic_or_traditional = yes }
 		}
 		modifier = {
 			factor = 2

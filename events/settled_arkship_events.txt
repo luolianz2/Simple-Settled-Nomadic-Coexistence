@@ -181,3 +181,14 @@ situation_event = {
 		set_situation_flag = settled_arkship_type_military
 	}
 }
+
+# 安装标记：供第三方模组检测 SSNC 是否加载（on_game_start 触发一次）
+event = {
+	id = settled_arkship.30
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		set_global_flag = ssnc_installed
+	}
+}

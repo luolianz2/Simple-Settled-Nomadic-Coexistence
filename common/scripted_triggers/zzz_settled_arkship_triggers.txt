@@ -1,0 +1,8 @@
+# 模组统一准入条件：游牧帝国 或 已开门游牧传统的定居帝国
+# 另提供全局安装标记 ssnc_installed（on_game_start 设置），供第三方静态检测
+is_nomadic_or_traditional = {
+	OR = {
+		is_nomadic = yes
+		has_tradition = tr_nomadic_legacy_adopt
+	}
+}
