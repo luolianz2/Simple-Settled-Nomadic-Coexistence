@@ -29,8 +29,10 @@ create_settled_arkship_effect = {
 					}
 					colony = {
 						upgrade_colony_shelter = yes
+						settled_arkship_origin_pre_fix_effect = yes
 						generate_start_buildings_and_districts = yes
 						generate_start_pops = yes
+						settled_arkship_origin_fixes_effect = yes
 					}
 				}
 			}
@@ -74,8 +76,10 @@ create_settled_civilian_arkship_effect = {
 					}
 					colony = {
 						upgrade_colony_shelter = yes
+						settled_arkship_origin_pre_fix_effect = yes
 						generate_start_buildings_and_districts = yes
 						generate_start_pops = yes
+						settled_arkship_origin_fixes_effect = yes
 					}
 				}
 			}
@@ -120,8 +124,10 @@ create_settled_military_arkship_effect = {
 					}
 					colony = {
 						upgrade_colony_shelter = yes
+						settled_arkship_origin_pre_fix_effect = yes
 						generate_start_buildings_and_districts = yes
 						generate_start_pops = yes
+						settled_arkship_origin_fixes_effect = yes
 					}
 				}
 			}

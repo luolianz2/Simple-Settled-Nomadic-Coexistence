@@ -1,0 +1,85 @@
+# 覆盖原版 game_start/origin_cybernetic_creed
+# 事件链与排队事件加仅首次守卫，防止创建方舟时重复触发
+
+
+# Cybernetic Creed Initial Setup
+# Flags Set:
+#	* suppress_vanilla_factions
+# Events:
+# 	* Cybernetic Creed event chain begun
+#	* The Creeds event queued in 30 days
+# Other:
+#	* Ruler gains the Ritualistic Implants trait
+# Buildings Removed:
+#	* Temple (from Spritialist Ethics)
+#	* Factory 1
+#	* Commercial Zone
+#	* Precinct House
+#	* Stronghold
+# Building Added:
+#	* Amphitheater of the Mind
+#	* Sanctuary of Toil
+#	* Battlement of Steel
+#	* Forge of the Fellowship
+#	* Civilian Industries
+
+if = {
+	limit = {
+		owner? = {
+			has_origin = origin_cybernetic_creed
+		}
+	}
+	owner = {
+		set_country_flag = suppress_vanilla_factions
+		# 仅首次触发：防止创建方舟再次执行开局初始化时重复开始事件链与排队事件
+		if = {
+			limit = {
+				NOT = {
+					has_country_flag = cybernetic_creed_events_started
+				}
+			}
+			begin_event_chain = {
+				event_chain = "cybernetic_creed_chain"
+				target = this
+			}
+			country_event = {
+				id = machine_age.2150
+				days = 30
+			}
+			set_country_flag = cybernetic_creed_events_started
+		}
+	}
+	remove_building = building_temple
+	remove_building = building_factory_1
+	remove_building = building_commercial_zone
+	remove_building = building_precinct_house
+	remove_building = building_stronghold
+
+	add_building = {
+#		zone = zone_research_unity
+		building = building_amphitheater_of_the_mind
+	}
+	add_building = {
+#		zone = zone_research_unity
+		building = building_sanctuary_of_toil
+	}
+	add_building = {
+#		zone = zone_industrial
+		building = building_battlement_of_steel
+	}
+	add_building = {
+#		zone = zone_industrial
+		building = building_forge_of_the_fellowship
+	}
+	if = {
+		limit = {
+			owner = {
+				has_civic = civic_civil_education
+			}
+		}
+		add_building = {
+			zone = zone_industrial
+			building = building_factory_1
+		}
+	}
+}

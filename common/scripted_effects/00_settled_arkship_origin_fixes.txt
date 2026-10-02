@@ -1,0 +1,205 @@
+# 方舟起源适配修正
+# 用途：创建方舟时（00_settled_arkship_effects.txt），在原版开局初始化（generate_start_*）前后备份与清理逐起源的问题
+
+# 方舟创建前处理：在原版开局初始化改写数据之前备份
+settled_arkship_origin_pre_fix_effect = {
+	# 合成繁衍：备份 num_dead_identities 进度变量（原版开局脚本会将 num_dead_identities 重置为 300）
+	if = {
+		limit = {
+			owner = {
+				has_origin = origin_synthetic_fertility
+			}
+		}
+		owner = {
+			set_variable = { # 备份变量
+				which = settled_arkship_ndi_backup
+				value = num_dead_identities
+			}
+		}
+	}
+	# 食尸文化/协同进化：保存开局选择的次要物种（供方舟创建后修正人口使用）
+	if = {
+		limit = {
+			owner = {
+				OR = {
+					has_origin = origin_necrophage
+					has_origin = origin_syncretic_evolution
+				}
+			}
+		}
+		owner = {
+			save_event_target_as = settled_arkship_origin_country
+		}
+		random_galaxy_species = {
+			limit = {
+				has_species_flag = syncretic_species@event_target:settled_arkship_origin_country
+			}
+			save_event_target_as = settled_arkship_secondary_species
+		}
+	}
+	# 义体信条：补设事件链守卫标记，防止旧存档创建方舟时重复触发（新存档由覆盖脚本设置）
+	if = {
+		limit = {
+			owner = {
+				has_origin = origin_cybernetic_creed
+			}
+		}
+		owner = {
+			set_country_flag = cybernetic_creed_events_started
+		}
+	}
+}
+
+
+# 方舟创建后修正：清理原版开局初始化在方舟上产生的异常内容
+settled_arkship_origin_fixes_effect = {
+	# 毒圣骑士：清除毒圣专属行星特征
+	if = {
+		limit = {
+			owner = {
+				has_origin = origin_toxic_knights
+			}
+		}
+		every_deposit = {
+			limit = {
+				OR = {
+					is_deposit_type = d_toxic_god_blight_upon_the_land
+					is_deposit_type = d_toxic_god_deitys_swarms
+					is_deposit_type = d_toxic_god_pools_most_venemous
+					is_deposit_type = d_toxic_god_pestilential_wasteland
+					is_deposit_type = d_toxic_god_envenomed_seas
+				}
+			}
+			remove_deposit = yes
+		}
+	}
+
+	# 粉碎的枷锁：清除沉船/碎片特征
+	if = {
+		limit = {
+			owner = {
+				has_origin = origin_broken_shackles
+			}
+		}
+		every_deposit = {
+			limit = {
+				OR = {
+					is_deposit_type = d_crashed_slaver_ship
+					is_deposit_type = d_ship_debris_broken_shackles_blocker
+				}
+			}
+			remove_deposit = yes
+		}
+	}
+
+	# 资源统合：清除异常行星特征
+	if = {
+		limit = {
+			owner = {
+				has_origin = origin_machine
+			}
+		}
+		every_deposit = {
+			limit = {
+				OR = {
+					is_deposit_type = d_machine_prototype_pc_machine
+					is_deposit_type = d_machine_ongoing_construction
+					is_deposit_type = d_organic_slurry
+				}
+			}
+			remove_deposit = yes
+		}
+	}
+
+	# 血债血偿：清除碎片特征、残骸场修正与荒废度
+	if = {
+		limit = {
+			owner = {
+				has_origin = origin_payback
+			}
+		}
+		every_deposit = {
+			limit = {
+				is_deposit_type = d_ship_debris_payback_blocker
+			}
+			remove_deposit = yes
+		}
+		remove_modifier = payback_debris_field
+		add_planet_devastation = -33
+	}
+
+	# 合成繁衍：清除废弃城市特征与废弃基因诊所，恢复进度变量
+	if = {
+		limit = {
+			owner = {
+				has_origin = origin_synthetic_fertility
+			}
+		}
+		every_deposit = {
+			limit = {
+				is_deposit_type = d_abandoned_cities
+			}
+			remove_deposit = yes
+		}
+		remove_building = building_abandoned_gene_clinic
+		if = {
+			limit = {
+				owner = {
+					check_variable = {
+						which = settled_arkship_ndi_backup
+						value >= 0
+					}
+				}
+			}
+			owner = {
+				set_variable = {
+					which = num_dead_identities
+					value = settled_arkship_ndi_backup
+				}
+				set_variable = {
+					which = settled_arkship_ndi_backup
+					value = 0
+				}
+			}
+		}
+		# 同步致病人口基线：防止方舟新增人口使局势月度差值变负（进度倒退）
+		owner = {
+			export_trigger_value_to_variable = {
+				trigger = count_owned_pop_amount
+				parameters = {
+					limit = {
+						has_trait = trait_pathogenic_genes
+					}
+				}
+				variable = remaining_synth_fert_pops
+			}
+		}
+	}
+
+	# 食尸文化/协同进化：把方舟上的错误次要人口转换为开局选择的次要物种
+	if = {
+		limit = {
+			owner = {
+				OR = {
+					has_origin = origin_necrophage
+					has_origin = origin_syncretic_evolution
+				}
+			}
+			exists = event_target:settled_arkship_secondary_species # 防御性判断，不为空执行下面代码，否则跳过
+		}
+		owner_main_species = {
+			save_event_target_as = settled_arkship_main_species
+		}
+		every_owned_pop_group = {
+			limit = {
+				NOT = {
+					is_same_species = event_target:settled_arkship_main_species
+				}
+				NOT = {
+					is_same_species = event_target:settled_arkship_secondary_species
+				}
+			}
+			change_species = event_target:settled_arkship_secondary_species
+		}
+	}
+}
