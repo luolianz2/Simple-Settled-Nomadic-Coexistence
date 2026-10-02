@@ -1,6 +1,13 @@
 # 覆盖 tech_waystation_1（科技驿站）：去除 potential 限制
 # 原版 give_technology 检查 potential，限制会挡住定居帝国
 tech_waystation_1 = {
+	potential = {
+		OR = {
+			is_nomadic = yes
+			has_tradition = tr_nomadic_legacy_adopt
+		}
+	}
+
 	cost = 0
 	area = engineering
 	start_tech = yes

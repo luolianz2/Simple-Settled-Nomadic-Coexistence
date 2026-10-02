@@ -3,6 +3,13 @@
 # 扩为 OR = { is_nomadic = yes / 已点游牧传统开门 }：定居帝国点传统后可获得/研究
 
 tech_arkship_construction = {
+	potential = {
+		OR = {
+			is_nomadic = yes
+			has_tradition = tr_nomadic_legacy_adopt
+		}
+	}
+
 	area = engineering
 	category = { voidcraft }
 	tier = 3
@@ -41,6 +48,13 @@ tech_arkship_construction = {
 }
 
 tech_arkship_tier_2 = {
+	potential = {
+		OR = {
+			is_nomadic = yes
+			has_tradition = tr_nomadic_legacy_adopt
+		}
+	}
+
 	area = engineering
 	category = { voidcraft }
 	tier = 3
@@ -83,6 +97,13 @@ tech_arkship_tier_2 = {
 }
 
 tech_arkship_tier_3 = {
+	potential = {
+		OR = {
+			is_nomadic = yes
+			has_tradition = tr_nomadic_legacy_adopt
+		}
+	}
+
 	area = engineering
 	category = { voidcraft }
 	tier = 4
@@ -129,6 +150,13 @@ tech_arkship_tier_3 = {
 }
 
 tech_civilian_arkship = {
+	potential = {
+		OR = {
+			is_nomadic = yes
+			has_tradition = tr_nomadic_legacy_adopt
+		}
+	}
+
 	area = society
 	category = { new_worlds }
 	tier = 3
@@ -176,6 +204,13 @@ tech_civilian_arkship = {
 }
 
 tech_science_arkship = {
+	potential = {
+		OR = {
+			is_nomadic = yes
+			has_tradition = tr_nomadic_legacy_adopt
+		}
+	}
+
 	area = physics
 	category = { computing }
 	tier = 3
@@ -223,6 +258,13 @@ tech_science_arkship = {
 }
 
 tech_military_arkship = {
+	potential = {
+		OR = {
+			is_nomadic = yes
+			has_tradition = tr_nomadic_legacy_adopt
+		}
+	}
+
 	area = engineering
 	category = { voidcraft }
 	tier = 3
@@ -274,6 +316,13 @@ tech_military_arkship = {
 
 # Arkship Spinal Mount Technologies
 tech_arkship_planetary_refinery = {
+	potential = {
+		OR = {
+			is_nomadic = yes
+			has_tradition = tr_nomadic_legacy_adopt
+		}
+	}
+
 	area = engineering
 	category = { industry }
 	tier = 4
@@ -327,6 +376,13 @@ tech_arkship_planetary_refinery = {
 }
 
 tech_arkship_stellar_igniter = {
+	potential = {
+		OR = {
+			is_nomadic = yes
+			has_tradition = tr_nomadic_legacy_adopt
+		}
+	}
+
 	area = physics
 	category = { field_manipulation }
 	tier = 4
@@ -375,6 +431,13 @@ tech_arkship_stellar_igniter = {
 }
 
 tech_arkship_system_scanner = {
+	potential = {
+		OR = {
+			is_nomadic = yes
+			has_tradition = tr_nomadic_legacy_adopt
+		}
+	}
+
 	area = physics
 	category = { computing }
 	tier = 4
@@ -436,6 +499,13 @@ tech_arkship_system_scanner = {
 }
 
 tech_arkship_exodus_jump = {
+	potential = {
+		OR = {
+			is_nomadic = yes
+			has_tradition = tr_nomadic_legacy_adopt
+		}
+	}
+
 	area = physics
 	category = { particles }
 	tier = 4
@@ -479,6 +549,13 @@ tech_arkship_exodus_jump = {
 # Waystation Technologies
 
 tech_nomads_mechanized_mining = {
+	potential = {
+		OR = {
+			is_nomadic = yes
+			has_tradition = tr_nomadic_legacy_adopt
+		}
+	}
+
 	cost = 0
 	area = engineering
 	start_tech = yes
@@ -494,6 +571,13 @@ tech_nomads_mechanized_mining = {
 }
 
 tech_waystation_2 = {
+	potential = {
+		OR = {
+			is_nomadic = yes
+			has_tradition = tr_nomadic_legacy_adopt
+		}
+	}
+
 	area = engineering
 	category = { voidcraft }
 	tier = 2
@@ -578,6 +662,13 @@ tech_waystation_2 = {
 }
 
 tech_waystation_3 = {
+	potential = {
+		OR = {
+			is_nomadic = yes
+			has_tradition = tr_nomadic_legacy_adopt
+		}
+	}
+
 	area = engineering
 	category = { voidcraft }
 	tier = 3
@@ -657,6 +748,13 @@ tech_waystation_3 = {
 # Planetary Engineering
 
 tech_planetary_engineering = {
+	potential = {
+		OR = {
+			is_nomadic = yes
+			has_tradition = tr_nomadic_legacy_adopt
+		}
+	}
+
 	area = engineering
 	category = { industry }
 	tier = 2

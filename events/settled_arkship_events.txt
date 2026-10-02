@@ -48,7 +48,7 @@ situation_event = {
 	}
 }
 
-# 踏步者（到达 500 点：获得驿站 1 + 零重力工程，首都新增所选类型方舟）
+# 踏步者（到达 500 点：获得驿站 1 + 零重力工程 + 战略资源开采，首都新增所选类型方舟）
 situation_event = {
 	id = settled_arkship.13
 	title = settled_arkship.13.name
@@ -63,6 +63,7 @@ situation_event = {
 		owner = {
 			give_technology = { tech = tech_waystation_1 message = no }
 			give_technology = { tech = tech_space_construction message = no }
+			give_technology = { tech = tech_nomads_mechanized_mining message = no }
 		}
 		# 按 225 点"设计者"事件的选型创建对应方舟（未选则默认科研方舟）
 		if = {
@@ -133,7 +134,6 @@ situation_event = {
 		name = settled_arkship.16.option
 		owner = {
 			give_technology = { tech = tech_planetary_engineering message = no }
-			give_technology = { tech = tech_nomads_mechanized_mining message = no }
 			give_technology = { tech = tech_arkship_tier_3 message = no }
 			give_technology = { tech = tech_arkship_planetary_refinery message = no }
 			give_technology = { tech = tech_arkship_stellar_igniter message = no }
