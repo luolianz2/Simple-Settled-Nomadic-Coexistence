@@ -197,11 +197,19 @@ event = {
 				is_nomadic = no
 			}
 			capital_scope = {
-				while = {
-					count < 3
-					add_deposit = d_deep_sleep_cryo_pods
-				}
+				settled_arkship_add_deep_sleep_cryo_pods_effect = yes
 			}
 		}
+	}
+}
+
+# 新殖民地建立（on_colonized）：深度睡眠帝国自动补 3 个冷冻舱
+carrier_event = {
+	id = settled_arkship.31
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		settled_arkship_add_deep_sleep_cryo_pods_effect = yes
 	}
 }

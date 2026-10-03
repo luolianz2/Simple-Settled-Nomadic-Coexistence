@@ -1,3 +1,22 @@
+# 深度睡眠帝国的新殖民地补 3 个冷冻舱（星球/方舟通用；已有冷冻舱则跳过）
+settled_arkship_add_deep_sleep_cryo_pods_effect = {
+	if = {
+		limit = {
+			owner = {
+				is_deep_sleep_country = yes
+			}
+			NOR = {
+				has_deposit = d_deep_sleep_cryo_pods
+				has_deposit = d_deep_sleep_cryo_pods_renewed
+			}
+		}
+		while = {
+			count < 3
+			add_deposit = d_deep_sleep_cryo_pods
+		}
+	}
+}
+
 # 创建科研方舟（带初始殖民地）：逐星局势调用
 create_settled_arkship_effect = {
 	capital_scope = {
@@ -33,6 +52,7 @@ create_settled_arkship_effect = {
 						generate_start_buildings_and_districts = yes
 						generate_start_pops = yes
 						settled_arkship_origin_fixes_effect = yes
+						settled_arkship_add_deep_sleep_cryo_pods_effect = yes
 					}
 				}
 			}
@@ -80,6 +100,7 @@ create_settled_civilian_arkship_effect = {
 						generate_start_buildings_and_districts = yes
 						generate_start_pops = yes
 						settled_arkship_origin_fixes_effect = yes
+						settled_arkship_add_deep_sleep_cryo_pods_effect = yes
 					}
 				}
 			}
@@ -128,6 +149,7 @@ create_settled_military_arkship_effect = {
 						generate_start_buildings_and_districts = yes
 						generate_start_pops = yes
 						settled_arkship_origin_fixes_effect = yes
+						settled_arkship_add_deep_sleep_cryo_pods_effect = yes
 					}
 				}
 			}
