@@ -1,0 +1,37 @@
+# SSNC 内阁议席（寻星者）
+
+councilor_star_seekers_ssnc = {
+	leader_class = { scientist commander }
+
+	civic = civic_star_seekers_ssnc
+
+	modifier = {
+		science_ship_survey_speed = 0.02
+		ship_speed_mult = 0.015
+	}
+
+	is_leader_possible = {
+		OR = {
+			leader_class = commander
+			leader_class = scientist
+		}
+	}
+}
+
+councilor_corporate_star_seekers_ssnc = {
+	leader_class = { scientist commander }
+
+	civic = civic_corporate_star_seekers_ssnc
+
+	modifier = {
+		science_ship_survey_speed = 0.02
+		ship_speed_mult = 0.015
+	}
+
+	is_leader_possible = {
+		OR = {
+			leader_class = commander
+			leader_class = scientist
+		}
+	}
+}

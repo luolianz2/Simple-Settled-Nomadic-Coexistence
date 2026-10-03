@@ -1,0 +1,93 @@
+# SSNC 国民理念
+
+# 寻星者
+
+civic_star_seekers_ssnc = {
+	random_weight = {
+		base = 0
+	}
+	ai_weight = {
+		base = 0
+	}
+	playable = { has_nomads_dlc = yes }
+	ai_playable = { has_nomads_dlc = yes }
+	potential = {
+		is_nomadic = no
+		authority = { NOT = { value = auth_corporate } }
+		ethics = { NOT = { value = ethic_gestalt_consciousness}}
+	}
+	possible = {}
+	description = "civic_star_seekers_ssnc_effect_tooltip"
+
+	modifier = {
+		ship_speed_mult = 0.2
+	}
+}
+
+civic_corporate_star_seekers_ssnc = {
+	random_weight = {
+		base = 0
+	}
+	ai_weight = {
+		base = 0
+	}
+	playable = { has_nomads_dlc = yes }
+	ai_playable = { has_nomads_dlc = yes }
+	potential = {
+		is_nomadic = no
+		OR = {
+			authority = { value = auth_corporate }
+			civics = { value = civic_galactic_sovereign_megacorp }
+		}
+	}
+	possible = {}
+	description = "civic_star_seekers_ssnc_effect_tooltip"
+
+	modifier = {
+		ship_speed_mult = 0.2
+	}
+}
+
+civic_hive_star_seekers_ssnc = {
+	random_weight = {
+		base = 0
+	}
+	ai_weight = {
+		base = 0
+	}
+	playable = { has_nomads_dlc = yes }
+	ai_playable = { has_nomads_dlc = yes }
+	potential = {
+		is_nomadic = no
+		authority = { value = auth_hive_mind }
+	}
+	possible = {}
+	description = "civic_star_seekers_ssnc_effect_tooltip"
+
+	modifier = {
+		ship_speed_mult = 0.2
+		councilor_gestalt_cognitive_exp_gain = @gestalt_civic_node_xp_rate
+	}
+}
+
+civic_machine_star_seekers_ssnc = {
+	random_weight = {
+		base = 0
+	}
+	ai_weight = {
+		base = 0
+	}
+	playable = { has_nomads_dlc = yes }
+	ai_playable = { has_nomads_dlc = yes }
+	potential = {
+		is_nomadic = no
+		authority = { value = auth_machine_intelligence }
+	}
+	possible = {}
+	description = "civic_star_seekers_ssnc_effect_tooltip"
+
+	modifier = {
+		ship_speed_mult = 0.2
+		councilor_gestalt_cognitive_exp_gain = @gestalt_civic_node_xp_rate
+	}
+}

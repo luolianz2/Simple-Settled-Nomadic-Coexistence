@@ -1,0 +1,8 @@
+# 寻星议程完成修正
+agenda_star_seek_ssnc_finish = {
+	pop_bonus_workforce_mult = 1
+	planet_jobs_produces_mult = 1
+	logistic_growth_mult = 1
+	diplo_weight_economy_mult = -0.75
+	planet_jobs_upkeep_mult = 0.4
+}

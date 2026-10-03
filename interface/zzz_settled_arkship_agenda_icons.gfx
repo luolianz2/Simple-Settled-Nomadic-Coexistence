@@ -1,0 +1,7 @@
+spriteTypes = {
+	# "寻星"议程图标（agenda_star_seek_ssnc）：使用原版探索传统开门议程的图标
+	spriteType = {
+		name = "GFX_council_agenda_icon_agenda_star_seek_ssnc"
+		texturefile = "gfx/interface/icons/agenda_icons/agenda_chart_the_unknown.dds"
+	}
+}

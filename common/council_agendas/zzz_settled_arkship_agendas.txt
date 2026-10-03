@@ -1,0 +1,35 @@
+# 寻星议程：寻星者(定居)国民理念专属
+# 仅玩家可用，冷却 3 年（1080 天）；推进成本 2250，完成后生效 5 个月
+agenda_star_seek_ssnc = {
+	agenda_cost = 2250
+	agenda_cooldown = 1080
+
+	potential = {
+		is_ai = no
+		OR = {
+			has_valid_civic = civic_star_seekers_ssnc
+			has_valid_civic = civic_corporate_star_seekers_ssnc
+			has_valid_civic = civic_hive_star_seekers_ssnc
+			has_valid_civic = civic_machine_star_seekers_ssnc
+		}
+	}
+
+	# 起始修正
+	modifier = {
+		pop_bonus_workforce_mult = 0.05
+		logistic_growth_mult = 0.05
+		planet_jobs_upkeep_mult = 0.05
+	}
+
+	# 启动时获得 150 天的寻星庆典修正
+	effect = {
+		add_modifier = {
+			modifier = agenda_star_seek_ssnc_finish
+			days = 150
+		}
+	}
+
+	ai_weight = {
+		base = 0
+	}
+}

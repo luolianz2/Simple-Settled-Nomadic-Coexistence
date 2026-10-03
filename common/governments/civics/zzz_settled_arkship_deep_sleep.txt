@@ -1,0 +1,73 @@
+# 覆盖原版深度睡眠系国民理念（4 个）：改为定居帝国也可选
+# 定居帝国首都 3 个冷冻舱由模组事件 settled_arkship.30 在开局补齐
+
+civic_deep_sleep = {
+	playable = { has_nomads_dlc = yes }
+	ai_playable = { has_nomads_dlc = yes }
+	description = "civic_deep_sleep_effects"
+	potential = {
+		ethics = { NOT = { value = ethic_gestalt_consciousness } }
+		authority = { NOT = { value = auth_corporate } }
+	}
+	possible = {
+		origin = {
+			NOT = { value = origin_synthetic_fertility }
+		}
+	}
+
+	modifier = {}
+
+	custom_tooltip_with_modifiers = "civic_deep_sleep_effects_additional"
+}
+
+civic_corporate_deep_sleep = {
+	playable = { has_nomads_dlc = yes }
+	ai_playable = { has_nomads_dlc = yes }
+	description = "civic_corporate_deep_sleep_effects"
+	potential = {
+		ethics = {
+			NOT = {
+				value = ethic_gestalt_consciousness
+			}
+		}
+		OR = {
+			authority = { value = auth_corporate }
+			civics = { value = civic_galactic_sovereign_megacorp }
+		}
+	}
+	possible = {
+		origin = {
+			NOT = { value = origin_synthetic_fertility }
+		}
+	}
+
+	modifier = {}
+
+	custom_tooltip_with_modifiers = "civic_deep_sleep_effects_additional"
+}
+
+civic_hive_deep_sleep = {
+	playable = { has_nomads_dlc = yes }
+	ai_playable = { has_nomads_dlc = yes }
+	description = "civic_deep_sleep_effects"
+	potential = { authority = { value = auth_hive_mind } }
+	possible = {}
+	modifier = {
+		leader_lifespan_mult = 0.1
+		councilor_gestalt_regulatory_exp_gain = @gestalt_civic_node_xp_rate
+	}
+	custom_tooltip_with_modifiers = "civic_deep_sleep_effects_additional"
+}
+
+civic_machine_deep_sleep = {
+	playable = { has_nomads_dlc = yes }
+	ai_playable = { has_nomads_dlc = yes }
+	description = "civic_deep_sleep_effects"
+	potential = { authority = { value = auth_machine_intelligence } }
+	possible = {}
+	modifier = {
+		leader_lifespan_mult = 0.1
+		councilor_gestalt_regulatory_exp_gain = @gestalt_civic_node_xp_rate
+	}
+	custom_tooltip_with_modifiers = "civic_deep_sleep_effects_additional"
+}

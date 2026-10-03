@@ -190,5 +190,18 @@ event = {
 
 	immediate = {
 		set_global_flag = ssnc_installed
+		# 深度睡眠（定居帝国）：不会执行原版游牧开局初始化，开局为其首都补 3 个冷冻舱
+		every_country = {
+			limit = {
+				is_deep_sleep_country = yes
+				is_nomadic = no
+			}
+			capital_scope = {
+				while = {
+					count < 3
+					add_deposit = d_deep_sleep_cryo_pods
+				}
+			}
+		}
 	}
 }
