@@ -17,6 +17,48 @@ settled_arkship_add_deep_sleep_cryo_pods_effect = {
 	}
 }
 
+# 定居方舟初始殖民地模板
+# 固定区划上限 10，1 个方舟甲板和 2+1 个居住甲板（初始化还会增加一个居住甲板），甲板 zone 留空，4800 主体人口
+settled_arkship_initial_colony_effect = {
+	set_planet_size = 10
+	add_district = {
+		district_type = district_ark_basic
+		ignore_cap = yes
+	}
+	add_district = {
+		district_type = district_ark_city
+		ignore_cap = yes
+	}
+	add_district = {
+		district_type = district_ark_city
+		ignore_cap = yes
+	}
+	while = {
+		limit = { pop_amount < 4800 }
+		create_pop_group = {
+			species = owner_main_species
+		}
+	}
+	# 生体荒野补二级荒野首都
+	if = {
+		limit = {
+			owner = {
+				is_wilderness_empire = yes
+			}
+			NOR = {
+				has_building = building_colony_shelter_wilderness
+				has_building = building_capital_wilderness
+				has_building = building_major_capital_wilderness
+				has_building = building_system_capital_wilderness
+				has_building = building_imperial_capital_wilderness
+			}
+		}
+		add_building = building_capital_wilderness
+	}
+	settled_arkship_origin_fixes_effect = yes
+	settled_arkship_add_deep_sleep_cryo_pods_effect = yes
+}
+
 # 创建科研方舟（带初始殖民地）：逐星局势调用
 create_settled_arkship_effect = {
 	capital_scope = {
@@ -47,12 +89,7 @@ create_settled_arkship_effect = {
 						set_leader = last_created_leader
 					}
 					colony = {
-						upgrade_colony_shelter = yes
-						settled_arkship_origin_pre_fix_effect = yes
-						generate_start_buildings_and_districts = yes
-						generate_start_pops = yes
-						settled_arkship_origin_fixes_effect = yes
-						settled_arkship_add_deep_sleep_cryo_pods_effect = yes
+						settled_arkship_initial_colony_effect = yes
 					}
 				}
 			}
@@ -95,12 +132,7 @@ create_settled_civilian_arkship_effect = {
 						set_leader = last_created_leader
 					}
 					colony = {
-						upgrade_colony_shelter = yes
-						settled_arkship_origin_pre_fix_effect = yes
-						generate_start_buildings_and_districts = yes
-						generate_start_pops = yes
-						settled_arkship_origin_fixes_effect = yes
-						settled_arkship_add_deep_sleep_cryo_pods_effect = yes
+						settled_arkship_initial_colony_effect = yes
 					}
 				}
 			}
@@ -144,12 +176,7 @@ create_settled_military_arkship_effect = {
 						set_leader = last_created_leader
 					}
 					colony = {
-						upgrade_colony_shelter = yes
-						settled_arkship_origin_pre_fix_effect = yes
-						generate_start_buildings_and_districts = yes
-						generate_start_pops = yes
-						settled_arkship_origin_fixes_effect = yes
-						settled_arkship_add_deep_sleep_cryo_pods_effect = yes
+						settled_arkship_initial_colony_effect = yes
 					}
 				}
 			}
