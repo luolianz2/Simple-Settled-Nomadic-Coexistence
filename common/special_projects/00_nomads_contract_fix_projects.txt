@@ -1,0 +1,36 @@
+# 提前注册 AI 完成观光旅行合约时的特殊项目
+# 事件覆盖文件 先加载时，原版 special_project 尚未注册会导致解析错误
+# 这里按原版 inline_script = special_projects/contract_travel_project 展开同一 key
+special_project = {
+	key = "CONTRACT_SIGHTSEEING_TOUR_TRAVEL_PROJECT"
+	event_chain = contract_sightseeing_tour_chain
+	days_to_research = 3
+	project_type = project_type_contract
+	location = yes
+	remove_when_completed = yes
+	picture = GFX_evt_nomad_default
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+	event_scope = ship_event
+
+	requirements = {
+		carries_colony = 1
+	}
+
+	on_success = {
+		fleet = {
+			clear_orders = yes
+		}
+	}
+
+	on_fail = {
+	}
+
+	abort_trigger = {
+		NOT = {
+			owner = { has_event_chain = contract_sightseeing_tour_chain }
+		}
+	}
+
+	on_cancel = {
+	}
+}

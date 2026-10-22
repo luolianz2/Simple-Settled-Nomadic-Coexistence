@@ -1,0 +1,1674 @@
+# 本文件覆盖合约相关事件（原版 nomads_events_1.txt），将接包方判定改为 can_accept_contracts_trigger = yes
+namespace = nomads
+
+country_event = {
+	id = nomads.3001
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		is_ai = yes
+		can_issue_contracts_trigger = yes
+		any_relation = {
+			can_accept_contracts_trigger = yes
+			has_communications = prev
+			NOT = {
+				is_at_war_with = prev
+			}
+			root = { #check that ai likes at least one nomad enough
+				opinion_level = {
+					who = prev
+					level >= neutral
+				}
+			}
+		}
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				if = {
+					limit = {
+						count_country = {
+							count >= 15
+							limit = { is_country_type = default }
+						}
+					}
+					count_issued_contracts = 0
+				}
+				else_if = {
+					limit = {
+						count_country = {
+							count >= 10
+							limit = { is_country_type = default }
+						}
+					}
+					count_issued_contracts <= 1
+				}
+				else = {
+					count_issued_contracts <= 2
+				}
+			}
+			random_list = {
+				10 = { # Chance of nothing
+					modifier = {
+						factor = 3
+						is_xenophobe = yes
+					}
+					modifier = {
+						factor = 5
+						is_fanatic_xenophobe = yes
+					}
+					modifier = {
+						factor = 2
+						has_civic = civic_pompous_purists
+					}
+					modifier = {
+						factor = 4
+						is_gestalt = yes
+					}
+					modifier = {
+						factor = 0.1
+						is_megacorp = yes
+					}
+				}
+				20 = { # Harvest
+					modifier = { # skip if a harvest contract is already issued/picked up
+						factor = 0
+						has_country_flag = harvest_contract_active
+					}
+					modifier = { #more likely if deficit
+						factor = 5
+						OR = {
+							has_deficit = minerals
+							has_deficit = energy
+							has_deficit = alloys
+							has_deficit = exotic_gases
+							has_deficit = rare_crystals
+							has_deficit = volatile_motes
+						}
+					}
+					random_system_within_border = {
+						limit = {
+							NOT = {
+								has_star_flag = issued_harvest_contract
+								any_system_planet = {
+									is_star = no
+									has_modifier = harvested_resources_mining
+								}
+							}
+							if = {
+								limit = {
+									root = {
+										has_deficit = exotic_gases
+									}
+									any_system_planet = {
+										is_star = no
+										has_resource = {
+											type = exotic_gases
+											amount > 0
+										}
+									}
+								}
+								any_system_planet = {
+									is_star = no
+									has_resource = {
+										type = exotic_gases
+										amount > 0
+									}
+								}
+							}
+							else_if = {
+								limit = {
+									root = {
+										has_deficit = rare_crystals
+									}
+									any_system_planet = {
+										is_star = no
+										has_resource = {
+											type = rare_crystals
+											amount > 0
+										}
+									}
+								}
+								any_system_planet = {
+									is_star = no
+									has_resource = {
+										type = rare_crystals
+										amount > 0
+									}
+								}
+							}
+							else_if = {
+								limit = {
+									root = {
+										has_deficit = volatile_motes
+									}
+									any_system_planet = {
+										is_star = no
+										has_resource = {
+											type = volatile_motes
+											amount > 0
+										}
+									}
+								}
+								any_system_planet = {
+									is_star = no
+									has_resource = {
+										type = volatile_motes
+										amount > 0
+									}
+								}
+							}
+							else_if = {
+								limit = {
+									root = {
+										has_deficit = minerals
+									}
+									any_system_planet = {
+										is_star = no
+										has_resource = {
+											type = minerals
+											amount > 0
+										}
+									}
+								}
+								any_system_planet = {
+									is_star = no
+									has_resource = {
+										type = minerals
+										amount > 0
+									}
+								}
+							}
+							else_if = {
+								limit = {
+									root = {
+										has_deficit = energy
+									}
+									any_system_planet = {
+										is_star = no
+										has_resource = {
+											type = energy
+											amount > 0
+										}
+									}
+								}
+								any_system_planet = {
+									is_star = no
+									has_resource = {
+										type = energy
+										amount > 0
+									}
+								}
+							}
+							else_if = {
+								limit = {
+									root = {
+										has_deficit = alloys
+									}
+									any_system_planet = {
+										is_star = no
+										has_resource = {
+											type = alloys
+											amount > 0
+										}
+									}
+								}
+								any_system_planet = {
+									is_star = no
+									has_resource = {
+										type = alloys
+										amount > 0
+									}
+								}
+							}
+						}
+						save_event_target_as = contract_system
+						#Resource Type picker
+						random_list = {
+							inline_script = {
+								script = contracts/AIHarvestOption
+								RESOURCE = minerals
+							}
+							inline_script = {
+								script = contracts/AIHarvestOption
+								RESOURCE = energy
+							}
+							inline_script = {
+								script = contracts/AIHarvestOption
+								RESOURCE = consumer_goods
+							}
+							inline_script = {
+								script = contracts/AIHarvestOption
+								RESOURCE = alloys
+							}
+							inline_script = {
+								script = contracts/AIHarvestOption
+								RESOURCE = volatile_motes
+							}
+							inline_script = {
+								script = contracts/AIHarvestOption
+								RESOURCE = exotic_gases
+							}
+							inline_script = {
+								script = contracts/AIHarvestOption
+								RESOURCE = rare_crystals
+							}
+							inline_script = {
+								script = contracts/AIHarvestOption
+								RESOURCE = sr_living_metal
+							}
+							inline_script = {
+								script = contracts/AIHarvestOption
+								RESOURCE = nanites
+							}
+						}
+						set_timed_star_flag = {
+							flag = issued_harvest_contract
+							days = 1800
+						}
+					}
+				}
+				10 = { # Espionage
+					modifier = { # skip if an espionage support contract is already issued/picked up
+						factor = 0
+						has_country_flag = espionage_support_contract_active
+					}
+					modifier = { #check for valid spynets
+						factor = 0
+						NOT = {
+							any_spynetwork = {
+								NOT = { has_spynetwork_flag = issued_spy_support_contract }
+							}
+						}
+						NOT = {
+							any_envoy = {
+								has_envoy_task = {
+									task = spy_network
+								}
+							}
+						}
+					}
+					#reduced for nice guys
+					modifier = {
+						factor = 0.5
+						NOT = { has_tradition = tr_subterfuge_adopt }
+						is_xenophile = yes
+						has_civic = civic_warrior_culture #tis dishonorable
+						has_origin = origin_heirs_of_the_khan
+					}
+					#increases for sneaky people
+					modifier = {
+						factor = 2.5
+						OR = {
+							has_civic = civic_cutthroat_politics
+							has_civic = civic_shadow_council
+							has_civic = civic_secret_societies
+							has_civic = civic_criminal_heritage
+							has_civic = civic_secret_societies_corporate
+							has_civic = civic_hive_bodysnatcher
+							has_civic = civic_hive_familiar_face
+							has_civic = civic_machine_spybots
+						}
+					}
+					#increased for weak empire
+					modifier = {
+						factor = 1.5
+						any_neighbor_country = {
+							is_country_type = default #don't count FE's
+							relative_power = {
+								who = root
+								category = all
+								value = overwhelming
+							}
+						}
+					}
+
+					random_spynetwork = {
+						limit = {
+							NOT = { has_spynetwork_flag = issued_spy_support_contract }
+							has_spy_power > 9
+							target = { is_country_type = default }
+						}
+						save_event_target_as = espionage_support_spynetwork
+						target = { save_event_target_as = espionage_support_target }
+						random_list = {
+							10 = {
+								modifier = { #always a chance for simple contract
+									factor = 0.1
+									target = {
+										num_owned_planets > 3
+									}
+								}
+								create_espionage_contract = { CONTRACT = contract_espionage_support }
+							}
+							10 = {
+								modifier = {
+									factor = 0
+									target = {
+										OR = {
+											num_owned_planets < 3
+											num_owned_planets > 7
+										}
+									}
+								}
+								create_espionage_contract = { CONTRACT = contract_espionage_support_2 }
+							}
+							10 = {
+								modifier = {
+									factor = 0
+									target = {
+										OR = {
+											num_owned_planets < 7
+											num_owned_planets > 13
+										}
+									}
+								}
+								create_espionage_contract = { CONTRACT = contract_espionage_support_3 }
+							}
+							10 = {
+								modifier = {
+									factor = 0
+									target = {
+										num_owned_planets <= 13
+									}
+								}
+								create_espionage_contract = { CONTRACT = contract_espionage_support_4 }
+							}
+						}
+					}
+				}
+				20 = { # Deep Scan
+					modifier = { # skip if a deep scan contract is already issued/picked up
+						factor = 0
+						has_country_flag = deep_scan_contract_active
+					}
+					modifier = { #increased for materialists and explorers
+						factor = 2
+						OR = {
+							is_materialist = yes
+							has_tradition = tr_discovery_adopt
+							has_civic = civic_eager_explorers
+							has_civic = civic_hive_stargazers
+							has_civic = civic_privatized_exploration
+							has_civic = civic_machine_exploration_protocol
+						}
+					}
+					modifier = { #increased if boxed in -won't catch all edge cases like xenophobe FE or leviathans, but good enough.
+						factor = 3
+						NOT = {
+							any_system_within_border = {
+								any_neighbor_system = {
+									NOT = { exists = owner }
+								}
+							}
+						}
+					}
+					modifier = { #decrease if everything that can be deep scanned has been deep scanned
+						factor = 0.25
+						NOT = {
+							any_planet_within_border = {
+								has_anomaly = no
+								is_artificial = no
+								is_ringworld = no
+								NOT = {
+									is_planet_class = pc_astral_scar
+								}
+								if = {
+									limit = {
+										habitable_planet = yes
+									}
+									root = {
+										any_owned_leader = {
+											has_leader_flag = nomadic_naturalist
+										}
+									}
+								}
+								NOT = { is_variable_set = times_deep_scanned }
+							}
+						}
+					}
+					modifier = { #blocked if no possible contractor
+						factor = 0
+						NOT = {
+							any_relation = {
+								can_accept_contracts_trigger = yes
+								has_communications = prev
+								has_deep_scan_capability = yes
+							}
+						}
+					}
+					random_system_within_border = {
+						limit = {
+							NOT = { has_star_flag = issued_deep_scan_contract }
+						}
+						save_event_target_as = contract_system
+						owner = {
+							issue_contract = {
+								contract = contract_deep_scan
+								location = event_target:contract_system
+							}
+							prev = {
+								set_timed_star_flag = {
+									flag = issued_deep_scan_contract
+									days = 3600
+								}
+							}
+						}
+					}
+				}
+				5 = { # Raid Planet
+					modifier = { # skip if a raid planet contract is already issued/picked up
+						factor = 0
+						has_country_flag = raid_planet_contract_active
+					}
+					modifier = { #check for valid targets (rival or war)
+						factor = 0
+						num_rivals < 1
+						count_war = {
+							count < 1
+						}
+					}
+					#reduced for pacifists
+					modifier = {
+						factor = 0.1
+						is_pacifist = yes
+					}
+					#increased for militarists
+					modifier = {
+						factor = 3
+						is_militarist = yes
+					}
+					modifier = {
+						factor = 1.5
+						is_fanatic_militarist = yes
+					}
+					#increased for weaker empires
+					modifier = {
+						factor = 1.5
+						any_neighbor_country = {
+							is_country_type = default #don't count FE's
+							OR = {
+								is_rival = root
+								is_at_war_with = root
+							}
+							relative_power = {
+								who = root
+								category = all
+								value >= superior
+							}
+						}
+					}
+					#increased for enmity empires
+					modifier = {
+						factor = 2
+						has_tradition = tr_enmity_adopt
+					}
+
+					#War Case (takes priority over being petty)
+					if = {
+						limit = {
+							count_war = {
+								count < 0
+							}
+						}
+						ordered_country = {
+							limit = {
+								is_at_war_with = root
+							}
+							position = 0
+							order_by = fleet_power
+							save_event_target_as = raid_target
+							random_owned_planet = {
+								save_event_target_as = contract_planet
+							}
+						}
+						issue_contract = {
+							contract = contract_raid_planet_small
+							location = event_target:contract_planet
+						}
+					}
+					#Rival Case
+					else_if = {
+						limit = {
+							num_rivals > 0
+						}
+						random_rival_country = {
+							limit = {
+								is_country_type = default
+							}
+							save_event_target_as = raid_target
+							random_owned_planet = {
+								save_event_target_as = contract_planet
+							}
+						}
+						issue_contract = {
+							contract = contract_raid_planet_small
+							location = event_target:contract_planet
+						}
+					}
+				}
+				50 = { # Megastructure Support (this supports megastructure upgrades, their base construction is handled in nomads.3025)
+					modifier = { # skip if a megastructure support contract is already issued/picked up
+						factor = 0
+						has_country_flag = megastructure_support_contract_active
+					}
+					#Higher Prio than other contracts due the limited timeframe where its relevant
+					modifier = {
+						factor = 0
+						NOT = {
+							any_owned_megastructure = {
+								is_upgrading = yes
+							}
+						}
+					}
+					random_system_within_border = {
+						limit = {
+							any_system_megastructure = {
+								is_upgrading = yes
+							}
+						}
+						save_event_target_as = contract_system
+						owner = {
+							issue_contract = {
+								contract = contract_megastructure_support
+								location = event_target:contract_system
+							}
+						}
+					}
+				}
+				10 = { # Diplomatic Support
+					modifier = { # skip if already has an active diplomatic support contract
+						factor = 0
+						has_country_flag = diplomatic_support_contract_active
+					}
+					modifier = { # xenophiles and diplomacy bonus
+						factor = 4
+						OR = {
+							is_xenophile = yes
+							has_tradition = tr_diplomacy_adopt
+						}
+					}
+					modifier = { # xenophobe penalty
+						factor = 0.25
+						is_xenophobe = yes
+					}
+					modifier = { #increased for weak empire
+						factor = 1.5
+						any_neighbor_country = {
+							is_country_type = default #don't count FE's
+							relative_power = {
+								who = root
+								category = all
+								value = overwhelming
+							}
+						}
+					}
+					modifier = { #check for valid targets (not rival or war)
+						factor = 0
+						NOT = {
+							any_playable_country = {
+								is_country_type = default
+								has_communications = root
+								NOT = {
+									is_at_war_with = root
+									is_rival = root
+									is_same_value = root
+									is_nomadic = yes
+								}
+							}
+						}
+					}
+					random_country = {
+						limit = {
+							is_country_type = default
+							has_communications = root
+							NOT = {
+								is_at_war_with = root
+								is_rival = root
+								is_same_value = root
+								is_nomadic = yes
+							}
+						}
+						capital_scope = {
+							root.owner = {
+								issue_contract = {
+									contract = contract_diplomatic_support
+									location = prev
+								}
+							}
+						}
+					}
+				}
+				10 = { # Scan Debris
+					modifier = { # skip if a scan debris contract is already issued/picked up
+						factor = 0
+						has_country_flag = scan_debris_contract_active
+					}
+					modifier = {
+						factor = 0
+						count_available_debris = { count = 0 }
+					}
+					random_available_debris = {
+						solar_system = {
+							set_star_flag = debris_contract_system@root
+							save_event_target_as = debris_contract_system
+						}
+					}
+					issue_contract = {
+						contract = contract_scan_debris
+						location = event_target:debris_contract_system
+					}
+				}
+				10 = { # Clear Blockers
+					modifier = { # skip if a clear blockers contract is already issued/picked up
+						factor = 0
+						has_country_flag = clear_blockers_contract_active
+					}
+					modifier = {
+						factor = 0
+						any_owned_planet = {
+							is_colony = no
+							num_uncleared_blockers = 0
+						}
+					}
+					random_owned_planet = {
+						limit = {
+							is_colony = yes
+							num_uncleared_blockers > 0
+						}
+						root = {
+							issue_contract = {
+								contract = contract_clear_blockers
+								location = prev
+							}
+						}
+					}
+				}
+				10 = { # Build Waystation
+					modifier = { # skip if a build waystation contract is already issued/picked up
+						factor = 0
+						has_country_flag = build_waystation_contract_active
+					}
+					modifier = {
+						factor = 0
+						NOT = {
+							benefits_from_waystation_network = {
+								NOMAD = from
+								SYSTEM_OWNER = this
+							}
+						}
+					}
+					modifier = {
+						factor = 2
+						is_megacorp = yes
+					}
+					modifier = {
+						factor = 0.25
+						is_xenophobe = yes
+					}
+					random_system_within_border = {
+						limit = {
+							NOT = {
+								any_ship_in_system = {
+									is_waystation_ship = yes
+								}
+							}
+						}
+						save_event_target_as = build_waystation_contract_system
+						owner = {
+							issue_contract = {
+								contract = contract_build_waystation
+								location = event_target:build_waystation_contract_system
+							}
+						}
+						set_star_flag = waystation_contract_system@this
+					}
+				}
+				10 = { # Prisoner Disposal
+					modifier = { # skip if a prisoner disposal contract is already issued/picked up
+						factor = 0
+						has_country_flag = prisoner_disposal_contract_active
+					}
+					modifier = {
+						factor = 0
+						OR = {
+							NOT = {
+								any_owned_colony = {
+									num_assigned_jobs = {
+										job = criminal
+										value > 0
+									}
+								}
+							}
+							is_gestalt = yes
+						}
+					}
+					# increase for authoritarians
+					modifier = {
+						factor = 2
+						is_authoritarian = yes
+					}
+					modifier = {
+						factor = 5
+						is_fanatic_authoritarian = yes
+					}
+					# increase for police state or gene ID or oppressive autocracy
+					modifier = {
+						factor = 2
+						OR = {
+							has_valid_civic = civic_police_state
+							has_valid_civic = civic_genetic_identification
+							has_valid_civic = civic_corporate_genetic_identification
+						}
+					}
+					# decrease for experimental sentencing or civil education civic or slavers
+					# decrease for xenophiles
+
+					random_owned_colony = {
+						limit = {
+							num_assigned_jobs = {
+								job = criminal
+								value > 0
+							}
+						}
+						save_event_target_as = contract_system
+						owner = {
+							issue_contract = {
+								contract = contract_prisoner_disposal
+								location = event_target:contract_system
+							}
+						}
+					}
+				}
+				10 = { # Pest Control
+					modifier = { # skip if a pest control contract is already issued/picked up
+						factor = 0
+						has_country_flag = pest_control_contract_active
+					}
+					modifier = {
+						factor = 0
+						NOT = {
+							any_system_within_border = {
+								any_neighbor_system = {
+									can_pest_control_system = yes
+								}
+							}
+						}
+					}
+					modifier = {
+						factor = 0.1
+						is_xenophile = yes
+					}
+					random_system_within_border = {
+						limit = {
+							any_neighbor_system = {
+								can_pest_control_system = yes
+							}
+						}
+						random_neighbor_system = {
+							limit = {
+								can_pest_control_system = yes
+							}
+							save_event_target_as = pest_control_contract_target
+						}
+						if = {
+							limit = {
+								exists = event_target:pest_control_contract_target
+							}
+							owner = {
+								issue_contract = {
+									contract = contract_pest_control
+									location = event_target:pest_control_contract_target
+								}
+							}
+						}
+					}
+				}
+				5 = { # Sightseeing Tour
+					modifier = { # skip if a sightseeing tour contract is already issued/picked up
+						factor = 0
+						has_country_flag = sightseeing_tour_contract_active
+					}
+					modifier = {
+						factor = 0
+						NOT = {
+							any_owned_planet = {
+								is_colony = yes
+								NOT = {	has_modifier = nomad_contract_sightseeing }
+							}
+						}
+					}
+					modifier = {
+						factor = 1.5
+						AND = {
+							NOT = { is_authoritarian = yes }
+							any_owned_planet = {
+								happiness_planet < 0.5
+							}
+						}
+					}
+					modifier = {
+						factor = 2
+						OR = {
+							is_egalitarian = yes
+							is_xenophile = yes
+						}
+					}
+					random_owned_planet = {
+						limit = {
+							is_colony = yes
+							NOT = {	has_modifier = nomad_contract_sightseeing }
+							solar_system = {
+								NOT = { has_star_flag = sightseeing_tour_start_system@root }
+							}
+						}
+						root = {
+							if = {
+								limit = { exists = prev.solar_system }
+								issue_contract = {
+									contract = contract_sightseeing_tour
+									location = prev
+								}
+							}
+						}
+					}
+				}
+				10 = { # Join Wars
+					modifier = { # skip if a join war contract is already issued/picked up
+						factor = 0
+						has_country_flag = join_war_contract_active
+					}
+					modifier = { #check for war
+						factor = 0
+						count_war = {
+							count < 1
+						}
+					}
+					modifier = { #check for war exhaustion (to limit cases of contract issued just when a war would end)
+						factor = 0
+						NOT = {
+							any_war = {
+								AND = {
+									defender_war_exhaustion < 0.6
+									attacker_war_exhaustion < 0.6
+								}
+							}
+						}
+					}
+					modifier = { #increased if multiple wars
+						factor = 3
+						count_war = {
+							count > 1
+						}
+					}
+					#reduced for pacifists
+					modifier = {
+						factor = 0.1
+						is_pacifist = yes
+					}
+					#increased for militarists
+					modifier = {
+						factor = 3
+						is_militarist = yes
+					}
+					#increased for corpos
+					modifier = {
+						factor = 5
+						is_megacorp = yes
+					}
+					#increased for weaker empires
+					modifier = {
+						factor = 1.5
+						any_neighbor_country = {
+							is_country_type = default #don't count FE's
+							OR = {
+								is_rival = root
+								is_at_war_with = root
+							}
+							relative_power = {
+								who = root
+								category = all
+								value >= superior
+							}
+						}
+					}
+					if = {
+						limit = { exists = capital_scope }
+						issue_contract = {
+							contract = contract_join_war
+							location = capital_scope
+						}
+					}
+				}
+				50 = { # Colony Startup
+					modifier = { # skip if a colony startup contract is already issued/picked up
+						factor = 0
+						has_country_flag = colony_startup_contract_active
+					}
+					#Higher Prio than other contracts due the limited timeframe where its relevant
+					modifier = {
+						factor = 0
+						NOT = {
+							any_owned_planet = {
+								is_colony = yes
+								is_under_colonization = no
+								colony_age_years < 10
+								NOR = {
+									is_homeworld = yes
+									has_carrier_flag = colony_startup_planet@root
+									has_modifier = nomad_contract_colony_support_civilian
+									has_modifier = nomad_contract_colony_support_scientific
+									has_modifier = nomad_contract_colony_support_military
+								}
+							}
+						}
+					}
+					# reduced for xenophobes
+					modifier = {
+						factor = 0.1
+						is_xenophobe = yes
+					}
+					random_system_within_border = {
+						limit = {
+							any_system_planet = {
+								is_colony = yes
+								is_under_colonization = no
+								colony_age_years < 10
+								NOR = {
+									is_homeworld = yes
+									has_carrier_flag = colony_startup_planet@root
+									has_modifier = nomad_contract_colony_support_civilian
+									has_modifier = nomad_contract_colony_support_scientific
+									has_modifier = nomad_contract_colony_support_military
+								}
+							}
+						}
+						save_event_target_as = contract_system
+						owner = {
+							issue_contract = {
+								contract = contract_colony_startup
+								location = event_target:contract_system
+							}
+						}
+					}
+				}
+				10 = { # Stellar Ignition
+					modifier = { # skip if a stellar ignition contract is already issued/picked up
+						factor = 0
+						has_country_flag = stellar_ignition_contract_active
+					}
+					modifier = {
+						factor = 0
+						NOT = {
+							any_system_within_border = {
+								any_system_planet = {
+									contract_gas_giant_can_be_ignited = yes
+								}
+							}
+						}
+					}
+					# never for environmentalists
+					modifier = {
+						factor = 0
+						has_valid_civic = civic_environmentalist
+					}
+					# increased for militarists
+					modifier = {
+						factor = 2
+						is_militarist = yes
+					}
+					# increased for megacorp
+					modifier = {
+						factor = 2
+						is_megacorp = yes
+					}
+					# increased for planescapers
+					modifier = {
+						factor = 2
+						is_planetscaper_empire = yes
+					}
+
+					random_system_within_border = {
+						limit = {
+							any_system_planet = {
+								contract_gas_giant_can_be_ignited = yes
+							}
+						}
+						save_event_target_as = contract_system
+						owner = {
+							issue_contract = {
+								contract = contract_stellar_ignition
+								location = event_target:contract_system
+							}
+						}
+					}
+				}
+				20 = { # Onboard Physics Research
+					modifier = { # skip if an onboard physics research contract is already issued/picked up
+						factor = 0
+						has_country_flag = onboard_physics_research_contract_active
+					}
+					modifier = {
+						factor = 2
+						is_materialist = yes
+					}
+					modifier = {
+						factor = 2
+						is_fanatic_materialist = yes
+					}
+					modifier = {
+						factor = 0.5
+						is_spiritualist = yes
+					}
+					modifier = {
+						factor = 2
+						has_valid_civic = civic_technocracy
+					}
+					issue_contract = {
+						contract = contract_onboard_physics_research
+						location = capital_scope
+					}
+				}
+				20 = { # Onboard Society Research
+					modifier = { # skip if an onboard society research contract is already issued/picked up
+						factor = 0
+						has_country_flag = onboard_society_research_contract_active
+					}
+					modifier = {
+						factor = 2
+						is_materialist = yes
+					}
+					modifier = {
+						factor = 2
+						is_xenophile = yes
+					}
+					modifier = {
+						factor = 0.5
+						is_xenophobe = yes
+					}
+					modifier = {
+						factor = 0.5
+						has_valid_civic = civic_pompous_purists
+					}
+					issue_contract = {
+						contract = contract_onboard_society_research
+						location = capital_scope
+					}
+				}
+				20 = { # Onboard Engineering Research
+					modifier = { # skip if an onboard engineering research contract is already issued/picked up
+						factor = 0
+						has_country_flag = onboard_engineering_research_contract_active
+					}
+					modifier = {
+						factor = 2
+						is_materialist = yes
+					}
+					modifier = {
+						factor = 2
+						is_militarist = yes
+					}
+					modifier = {
+						factor = 2
+						has_valid_civic = civic_distinguished_admiralty
+					}
+					modifier = {
+						factor = 0.5
+						is_pacifist = yes
+					}
+					issue_contract = {
+						contract = contract_onboard_engineering_research
+						location = capital_scope
+					}
+				}
+				20 = { # Onboard Minerals Resource
+					modifier = { # skip if an onboard minerals resource contract is already issued/picked up
+						factor = 0
+						has_country_flag = onboard_minerals_resource_contract_active
+					}
+					modifier = {
+						factor = 0
+						NOT = {
+							any_planet_within_border = {
+								mineral_candidate = yes
+								OR = {
+									has_deposit = d_minerals_1
+									has_deposit = d_minerals_2
+									has_deposit = d_minerals_3
+									has_deposit = d_minerals_4
+									has_deposit = d_minerals_5
+									has_deposit = d_minerals_6
+									has_deposit = d_minerals_7
+									has_deposit = d_minerals_8
+									has_deposit = d_minerals_9
+									has_deposit = d_minerals_10
+								}
+							}
+						}
+					}
+					modifier = {
+						factor = 2
+						is_megacorp = yes
+					}
+					modifier = {
+						factor = 2
+						has_valid_civic = civic_mining_guilds
+					}
+					modifier = {
+						factor = 0.5
+						is_xenophobe = yes
+					}
+					random_system_within_border = {
+						limit = {
+							any_system_planet = {
+								mineral_candidate = yes
+								OR = {
+									has_deposit = d_minerals_1
+									has_deposit = d_minerals_2
+									has_deposit = d_minerals_3
+									has_deposit = d_minerals_4
+									has_deposit = d_minerals_5
+									has_deposit = d_minerals_6
+									has_deposit = d_minerals_7
+									has_deposit = d_minerals_8
+									has_deposit = d_minerals_9
+									has_deposit = d_minerals_10
+								}
+								NOT = { has_carrier_flag = contract_onboard_minerals_resource }
+							}
+						}
+						save_event_target_as = contract_system
+						owner = {
+							issue_contract = {
+								contract = contract_onboard_minerals_resource
+								location = event_target:contract_system
+							}
+						}
+					}
+				}
+				20 = { # Onboard Energy Resource
+					modifier = { # skip if an onboard energy resource contract is already issued/picked up
+						factor = 0
+						has_country_flag = onboard_energy_resource_contract_active
+					}
+					modifier = {
+						factor = 0
+						NOT = {
+							any_planet_within_border = {
+								energy_candidate = yes
+								OR = {
+									has_deposit = d_energy_1
+									has_deposit = d_energy_2
+									has_deposit = d_energy_3
+									has_deposit = d_energy_4
+									has_deposit = d_energy_5
+									has_deposit = d_energy_6
+									has_deposit = d_energy_7
+									has_deposit = d_energy_8
+									has_deposit = d_energy_9
+									has_deposit = d_energy_10
+								}
+							}
+						}
+					}
+					modifier = {
+						factor = 2
+						is_megacorp = yes
+					}
+					modifier = {
+						factor = 2
+						is_materialist = yes
+					}
+					modifier = {
+						factor = 0.5
+						is_xenophobe = yes
+					}
+					random_system_within_border = {
+						limit = {
+							any_system_planet = {
+								energy_candidate = yes
+								OR = {
+									has_deposit = d_energy_1
+									has_deposit = d_energy_2
+									has_deposit = d_energy_3
+									has_deposit = d_energy_4
+									has_deposit = d_energy_5
+									has_deposit = d_energy_6
+									has_deposit = d_energy_7
+									has_deposit = d_energy_8
+									has_deposit = d_energy_9
+									has_deposit = d_energy_10
+								}
+								NOT = { has_carrier_flag = contract_onboard_energy_resource }
+							}
+						}
+						save_event_target_as = contract_system
+						owner = {
+							issue_contract = {
+								contract = contract_onboard_energy_resource
+								location = event_target:contract_system
+							}
+						}
+					}
+				}
+				20 = { # Onboard Food Resource
+					modifier = { # skip if an onboard food resource contract is already issued/picked up
+						factor = 0
+						has_country_flag = onboard_food_resource_contract_active
+					}
+					modifier = {
+						factor = 0
+						NOT = {
+							any_planet_within_border = {
+								food_candidate = yes
+								OR = {
+									has_deposit = d_food_3
+									has_deposit = d_food_4
+									has_deposit = d_food_5
+									has_deposit = d_food_6
+									has_deposit = d_food_7
+									has_deposit = d_food_10
+								}
+							}
+						}
+					}
+					modifier = {
+						factor = 2
+						is_pacifist = yes
+					}
+					modifier = {
+						factor = 2
+						has_valid_civic = civic_agrarian_idyll
+					}
+					modifier = {
+						factor = 0.5
+						is_xenophobe = yes
+					}
+					random_system_within_border = {
+						limit = {
+							any_system_planet = {
+								food_candidate = yes
+								OR = {
+									has_deposit = d_food_3
+									has_deposit = d_food_4
+									has_deposit = d_food_5
+									has_deposit = d_food_6
+									has_deposit = d_food_7
+									has_deposit = d_food_10
+								}
+								NOT = { has_carrier_flag = contract_onboard_food_resource }
+							}
+						}
+						save_event_target_as = contract_system
+						owner = {
+							issue_contract = {
+								contract = contract_onboard_food_resource
+								location = event_target:contract_system
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+planet_event = { # Raid Contract bombardement damage tracker - from on_planet_bombarded
+	id = nomads.3015
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		from = {
+			can_accept_contracts_trigger = yes
+			has_event_chain = contract_raid_planet_chain
+		}
+		owner = { has_country_flag = raid_target@from }
+	}
+
+	immediate = {
+		set_carrier_flag = raid_contract_planet@from
+		export_trigger_value_to_variable = {
+			trigger = planet_devastation
+			variable = bomba
+		}
+		if = {
+			limit = {
+				NOT = { is_variable_set = bombatrack }
+			}
+			export_trigger_value_to_variable = {
+				trigger = planet_devastation
+				variable = bombatrack
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = {
+					which = bomba
+					subtract = bombatrack
+					value >= 1
+				}
+			}
+			change_variable = {
+				which = bombatrack
+				value = 1
+			}
+			from = {
+				add_mission_counter = {
+					mission = contract_raid_planet_small
+					counter = contract_progress_counter
+					amount = 1
+				}
+			}
+		}
+	}
+}
+
+country_event = { #AIs auto issue a contract when first building a new Megastructure (with a 5 year cooldown )
+	id = nomads.3025
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		exists = from
+		is_ai = yes
+		can_issue_contracts_trigger = yes
+		any_relation = {
+			can_accept_contracts_trigger = yes
+			has_communications = prev
+			NOT = {
+				is_at_war_with = prev
+			}
+		}
+		NOT = { has_country_flag = issued_megastructure_contract }
+	}
+
+	immediate = {
+		owner = {
+			issue_contract = {
+				contract = contract_megastructure_support
+				location = from
+			}
+			set_timed_country_flag = { flag = issued_megastructure_contract days = 1800 }
+		}
+	}
+}
+
+country_event = {
+	id = nomads.3035
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		can_accept_contracts_trigger = yes
+		has_event_chain = contract_scan_debris_chain
+	}
+
+	immediate = {
+		add_mission_counter = {
+			mission = contract_scan_debris
+			counter = contract_scan_debris_counter
+			amount = 1
+		}
+		# Mark that the debris was scanned so the contract's abort_trigger does not
+		# cancel it on the same day: scanning consumes the debris, and the contract
+		# is only completed on the following day when the counter is checked.
+		set_timed_country_flag = { flag = scan_debris_contract_scanned days = 10 }
+	}
+}
+
+system_event = {
+	id = nomads.3054
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		from = {
+			can_accept_contracts_trigger = yes
+			has_event_chain = contract_build_waystation_chain
+		}
+		has_star_flag = waystation_contract_system@root
+	}
+
+	immediate = {
+		owner = {
+			set_country_flag = build_waystation_complete
+		}
+		from = {
+			# Gate the contract's abort trigger: marks "success is in flight" so the
+			# any_fleet_in_system { is_waystation_ship } check on the next daily tick
+			# doesn't race ahead of the counter-based success check.
+			set_country_flag = build_waystation_contract_succeeded
+			add_mission_counter = {
+				mission = contract_build_waystation
+				counter = contract_build_waystation_counter
+				amount = 1
+			}
+		}
+	}
+}
+
+country_event = {
+	id = nomads.3055
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		can_accept_contracts_trigger = yes
+		has_event_chain = contract_pest_control_chain
+		fromfromfrom = {
+			has_fleet_flag = pest_contract_target@root
+		}
+	}
+
+	immediate = {
+		add_mission_counter = {
+			mission = contract_pest_control
+			counter = contract_pest_control_counter
+			amount = 1
+		}
+		set_country_flag = successful_pest_control@fromfrom.solar_system
+	}
+}
+
+fleet_event = {
+	id = nomads.3060
+	title = "nomads.3060.name"
+	desc = "nomads.3060.desc"
+	picture = GFX_evt_obelisk_tourists
+	show_sound = event_announcement
+	location = root.solar_system
+	event_chain = contract_sightseeing_tour_chain
+	is_triggered_only = yes
+
+	trigger = {
+		owner = {
+			can_accept_contracts_trigger = yes
+			has_event_chain = contract_sightseeing_tour_chain
+		}
+		is_arkship_fleet = yes
+		from = {
+			has_star_flag = sightseeing_tour_start_system@root.owner
+			NOT = { has_star_flag = sightseeing_tour_tourists_picked_upp@root.owner }
+		}
+	}
+
+	immediate = {
+		from = {
+			set_star_flag = sightseeing_tour_tourists_picked_upp@root.owner
+		}
+		set_fleet_flag = sightseeing_tour_arkship
+		random_system = {
+			limit = {
+				distance = {
+					source = prev.from
+					use_bypasses = no
+					min_jumps = 3
+					max_jumps = 5
+				}
+				NOR = {
+					has_star_flag = guardian
+					has_star_flag = hostile_system
+				}
+			}
+			weights = {
+				base = 1
+				modifier = {
+					factor = 10
+					OR = {
+						is_star_class = sc_black_hole
+						is_star_class = sc_neutron_star
+						is_star_class = sc_pulsar
+					}
+				}
+			}
+			set_star_flag = sightseeing_tour_destination_system@root.owner
+			save_event_target_as = sightseeing_tour_destination_system
+		}
+		owner = {
+			remove_point_of_interest = sightseeing_tour_start_poi
+			create_point_of_interest = {
+				id = sightseeing_tour_destination_poi
+				name = "sightseeing_tour_destination_poi_name"
+				desc = "sightseeing_tour_destination_poi_desc"
+				event_chain = contract_sightseeing_tour_chain
+				location = event_target:sightseeing_tour_destination_system
+			}
+			if = {
+				limit = { is_ai = yes }
+				abort_special_project = {
+					type = CONTRACT_SIGHTSEEING_TOUR_TRAVEL_PROJECT
+					location = from
+				}
+				enable_special_project = {
+					name = "CONTRACT_SIGHTSEEING_TOUR_TRAVEL_PROJECT"
+					location = event_target:sightseeing_tour_destination_system
+					owner = this
+				}
+			}
+			create_message = {
+				type = MESSAGE_CONTRACT_SIGHTSEEING_TOUR_START
+				localization = MESSAGE_CONTRACT_SIGHTSEEING_TOUR_START_LOCATION_DESC
+				days = 30
+				variable = {
+					type = name
+					localization = SYSTEM
+					scope = event_target:sightseeing_tour_destination_system
+				}
+			}
+		}
+	}
+
+	option = {
+		name = nomads.3060.a
+		custom_tooltip = nomads.3060.a.tt
+	}
+}
+
+fleet_event = {
+	id = nomads.3065
+	title = "nomads.3065.name"
+	desc = "nomads.3065.desc"
+	picture = GFX_evt_space_funeral
+	show_sound = evn_ove_obelisk_tourists
+	location = root.solar_system
+	event_chain = contract_sightseeing_tour_chain
+	is_triggered_only = yes
+
+	trigger = {
+		owner = {
+			can_accept_contracts_trigger = yes
+			has_event_chain = contract_sightseeing_tour_chain
+		}
+		from = {
+			has_star_flag = sightseeing_tour_destination_system@root.owner
+		}
+		has_fleet_flag = sightseeing_tour_arkship
+	}
+
+	immediate = {
+		from = {
+			remove_star_flag = sightseeing_tour_destination_system@root.owner
+		}
+		random_system = {
+			limit = {
+				has_star_flag = sightseeing_tour_start_system@root.owner
+			}
+			remove_star_flag = sightseeing_tour_start_system@root.owner
+			set_star_flag = sightseeing_tour_end_system@root.owner
+			save_event_target_as = sightseeing_tour_end_system
+		}
+		owner = {
+			remove_point_of_interest = sightseeing_tour_destination_poi
+			create_point_of_interest = {
+				id = sightseeing_tour_end_poi
+				name = "sightseeing_tour_end_poi_name"
+				desc = "sightseeing_tour_end_poi_desc"
+				event_chain = contract_sightseeing_tour_chain
+				location = event_target:sightseeing_tour_end_system
+			}
+			if = {
+				limit = { is_ai = yes }
+				abort_special_project = {
+					type = CONTRACT_SIGHTSEEING_TOUR_TRAVEL_PROJECT
+					location = from
+				}
+				enable_special_project = {
+					name = "CONTRACT_SIGHTSEEING_TOUR_TRAVEL_PROJECT"
+					location = event_target:sightseeing_tour_end_system
+					owner = this
+				}
+			}
+			create_message = {
+				type = MESSAGE_CONTRACT_SIGHTSEEING_TOUR_END
+				localization = MESSAGE_CONTRACT_SIGHTSEEING_TOUR_END_LOCATION_DESC
+				days = 30
+				variable = {
+					type = name
+					localization = SYSTEM
+					scope = event_target:sightseeing_tour_end_system
+				}
+			}
+		}
+	}
+
+	option = {
+		name = nomads.3065.a
+		custom_tooltip = nomads.3060.a.tt
+	}
+}
+
+fleet_event = {
+	id = nomads.3070
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		owner = {
+			can_accept_contracts_trigger = yes
+			has_event_chain = contract_sightseeing_tour_chain
+		}
+		from = {
+			has_star_flag = sightseeing_tour_end_system@root.owner
+		}
+		has_fleet_flag = sightseeing_tour_arkship
+	}
+
+	immediate = {
+		remove_fleet_flag = sightseeing_tour_arkship
+		from = {
+			remove_star_flag = sightseeing_tour_end_system@root.owner
+			remove_star_flag = sightseeing_tour_tourists_picked_upp@root.owner
+		}
+		owner = {
+			remove_point_of_interest = sightseeing_tour_destination_poi
+			add_mission_counter = {
+				mission = contract_sightseeing_tour
+				counter = contract_progress_counter
+				amount = 1
+			}
+		}
+	}
+}
