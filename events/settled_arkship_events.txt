@@ -1,5 +1,5 @@
 # 逐星局势阶段事件
-# 局势 settled_arkship_building（逐星）：进度 1300，月推进 12
+# 局势 settled_arkship_building（逐星）：进度 1440，月推进 10
 # 各阶段 on_first_enter / on_start / on_progress_complete 触发下列事件
 namespace = settled_arkship
 
@@ -33,7 +33,7 @@ situation_event = {
 	}
 }
 
-# 先行者（到达 350 点）
+# 先行者（到达 400 点）
 situation_event = {
 	id = settled_arkship.12
 	title = settled_arkship.12.name
@@ -48,7 +48,7 @@ situation_event = {
 	}
 }
 
-# 踏步者（到达 500 点：获得驿站 1 + 零重力工程 + 战略资源开采，首都新增所选类型方舟）
+# 踏步者（到达 600 点：获得驿站 1 + 零重力工程 + 战略资源开采，首都新增所选类型方舟）
 situation_event = {
 	id = settled_arkship.13
 	title = settled_arkship.13.name
@@ -65,7 +65,7 @@ situation_event = {
 			give_technology = { tech = tech_space_construction message = no }
 			give_technology = { tech = tech_nomads_mechanized_mining message = no }
 		}
-		# 按 225 点"设计者"事件的选型创建对应方舟（未选则默认科研方舟）
+		# 按 220 点"设计者"事件的选型创建对应方舟（未选则默认科研方舟）
 		if = {
 			limit = { has_situation_flag = settled_arkship_type_civilian }
 			owner = { create_settled_civilian_arkship_effect = yes }
@@ -80,7 +80,7 @@ situation_event = {
 	}
 }
 
-# 前进者（到达 700 点：获得方舟建造）
+# 前进者（到达 900 点：获得方舟建造）
 situation_event = {
 	id = settled_arkship.14
 	title = settled_arkship.14.name
@@ -98,7 +98,7 @@ situation_event = {
 	}
 }
 
-# 奔跑者（到达 1000 点：获得 6 项游牧科技）
+# 奔跑者（到达 1200 点：获得 6 项游牧科技）
 situation_event = {
 	id = settled_arkship.15
 	title = settled_arkship.15.name
@@ -121,7 +121,7 @@ situation_event = {
 	}
 }
 
-# 飞翔者（进度 1300 完成：获得剩余游牧科技，局势结束）
+# 飞翔者（进度 1440 完成：获得剩余游牧科技，局势结束）
 situation_event = {
 	id = settled_arkship.16
 	title = settled_arkship.16.name
@@ -144,7 +144,7 @@ situation_event = {
 	}
 }
 
-# 设计者（局势中途事件：进度 225 点时触发，选择方舟类型）
+# 设计者（局势中途事件：进度 220 点时触发，选择方舟类型）
 # 由局势 on_monthly 每月尝试触发，trigger 检查进度与防重复 flag
 situation_event = {
 	id = settled_arkship.20
@@ -155,7 +155,7 @@ situation_event = {
 	situation = this
 
 	trigger = {
-		situation_progress >= 225
+		situation_progress >= 220
 		NOT = { has_situation_flag = settled_arkship_type_event_fired }
 	}
 
@@ -211,5 +211,45 @@ carrier_event = {
 
 	immediate = {
 		settled_arkship_add_deep_sleep_cryo_pods_effect = yes
+	}
+}
+
+# 登舰启航（拦截原版决议），将选中的殖民地转换为方舟，帝国保持定居
+country_event = {
+	id = settled_arkship.43
+	title = settled_arkship.43.name
+	desc = settled_arkship.43.desc
+	picture = GFX_evt_arkship_in_orbit
+	location = from
+	is_triggered_only = yes
+
+	option = {
+		name = nomads.4710.a.military
+		hidden_effect = {
+			settled_arkship_embark_colony_effect = {
+				ARKSHIP_TYPE = military
+				EMBARKED_PLANET = from
+			}
+		}
+	}
+
+	option = {
+		name = nomads.4710.a.science
+		hidden_effect = {
+			settled_arkship_embark_colony_effect = {
+				ARKSHIP_TYPE = science
+				EMBARKED_PLANET = from
+			}
+		}
+	}
+
+	option = {
+		name = nomads.4710.a.civilian
+		hidden_effect = {
+			settled_arkship_embark_colony_effect = {
+				ARKSHIP_TYPE = civilian
+				EMBARKED_PLANET = from
+			}
+		}
 	}
 }

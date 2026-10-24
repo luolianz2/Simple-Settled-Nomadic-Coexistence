@@ -25,7 +25,7 @@ tr_nomadic_legacy_1 = {
 		is_ai = no
 		is_nomadic = no
 	}
-	custom_tooltip = tr_nomadic_legacy_1_effects
+	custom_tooltip_with_modifiers = tr_nomadic_legacy_1_effects
 }
 
 # 右2：飞往无垠（每月凝聚力+10%、闪避+5、亚光速航速+10%）（需先点右1运行储备）
@@ -40,6 +40,7 @@ tr_nomadic_legacy_2 = {
 		ship_evasion_add = 5
 		ship_speed_mult = 0.1
 	}
+	custom_tooltip_with_modifiers = tr_nomadic_legacy_2_effects
 }
 
 # 左1：移动补给站（采集资源+20%）
@@ -51,7 +52,7 @@ tr_nomadic_legacy_4 = {
 	modifier = {
 		arkship_harvest_resources_produces_mult = 0.2
 	}
-	# with_modifiers：保留 modifier 自动文本并附加效果说明（防引擎丢弃无效 modifier 键时无显示）
+	# 统一写法：modifier 自动文本 + 共享速度提示
 	custom_tooltip_with_modifiers = tr_nomadic_legacy_4_effects
 }
 
@@ -66,6 +67,7 @@ tr_nomadic_legacy_3 = {
 		planet_max_districts_add = 1
 		worker_and_simple_drone_cat_bonus_workforce_mult = 0.1
 	}
+	custom_tooltip_with_modifiers = tr_nomadic_legacy_3_effects
 }
 
 # 左2：合约协定（解锁接收合约功能）（需先点左1移动补给站）
@@ -75,7 +77,7 @@ tr_nomadic_legacy_5 = {
 		is_nomadic = no
 		has_tradition = tr_nomadic_legacy_4
 	}
-	custom_tooltip = tr_nomadic_legacy_5_effects
+	custom_tooltip_with_modifiers = tr_nomadic_legacy_5_effects
 }
 
 # 闭门（研究速度+10%、飞升槽+1、解锁游牧专属飞升）

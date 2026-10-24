@@ -17,6 +17,70 @@ settled_arkship_add_deep_sleep_cryo_pods_effect = {
 	}
 }
 
+# 定居帝国从单个星球殖民地登上方舟（拦截原版登舰启航）
+# $ARKSHIP_TYPE$ = science / civilian / military
+# $EMBARKED_PLANET$ = 被登舰的殖民地
+settled_arkship_embark_colony_effect = {
+	give_technology = { tech = tech_$ARKSHIP_TYPE$_arkship message = no }
+	give_technology = { tech = tech_waystation_1 message = no }
+	refresh_auto_generated_ship_designs = yes
+	$EMBARKED_PLANET$ = {
+		save_event_target_as = settled_arkship_embark_planet
+	}
+	create_fleet = {
+		effect = {
+			set_owner = prev
+			create_ship = {
+				name = event_target:settled_arkship_embark_planet
+				create_colony = no
+				random_existing_design = $ARKSHIP_TYPE$_arkship_tier_1 # 从已有设计里选择对应的一级方舟设计
+				effect = {
+					save_event_target_as = settled_arkship_embarked# 保存新舰船
+					initialize_arkship_starbase_effect = yes
+					switch = {
+						trigger = is_ship_size
+						civilian_arkship_tier_1 = {
+							set_graphical_culture = civilian_arkship
+						}
+						science_arkship_tier_1 = {
+							set_graphical_culture = science_arkship
+						}
+						military_arkship_tier_1 = {
+							set_graphical_culture = military_arkship
+						}
+					}
+				}
+			}
+			set_location = {
+				target = $EMBARKED_PLANET$
+				distance = 0
+				angle = random
+			}
+		}
+	}
+	event_target:settled_arkship_embarked = {
+		transfer_carrier = {
+			source = $EMBARKED_PLANET$
+			target = this
+			transfer_ownership = no
+			merge_pops = no
+			destroy_colony = yes
+		}
+		colony = {
+			set_name = event_target:settled_arkship_embark_planet
+		}
+		fleet = {
+			set_name = event_target:settled_arkship_embark_planet
+		}
+	}
+	$EMBARKED_PLANET$ = {
+		add_modifier = {
+			modifier = stripped_planet
+		}
+		add_planet_devastation = 90
+	}
+}
+
 # 定居方舟初始殖民地模板
 # 固定区划上限 10，1 个方舟甲板和 2+1 个居住甲板（初始化还会增加一个居住甲板），甲板 zone 留空，4800 主体人口
 settled_arkship_initial_colony_effect = {

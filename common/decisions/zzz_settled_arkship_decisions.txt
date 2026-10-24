@@ -1,0 +1,129 @@
+# 覆盖原版登舰启航决议（15_nomads_dlc_decisions.txt）
+# 点游牧传统的定居帝国只把选中的殖民地转换为方舟，帝国保持定居
+# 其他帝国保持原版行为（nomads.4710）
+decision_nomad_embarkation = {
+	icon = decision_federation_fleet
+	owned_planets_only = yes
+	enactment_time = 3600
+	important = yes
+
+	potential = {
+		owner? = {
+			can_embark_trigger = yes
+		}
+		# 方舟殖民地不可再次登舰
+		NOT = { is_planet_class = pc_ark }
+		# 定居游牧只允许非首都殖民地登舰启航
+		OR = {
+			owner = {
+				NOT = { has_tradition = tr_nomadic_legacy_adopt }
+			}
+			is_capital = no
+		}
+	}
+
+	allow = {
+		owner? = {
+			custom_tooltip = {
+				fail_text = "requires_independence"
+				is_subject = no
+			}
+			custom_tooltip = {
+				fail_text = already_embarking
+				NOT = { has_country_flag = already_embarking }
+			}
+			custom_tooltip = {
+				fail_text = EMBARKING_IMPOSSIBLE_COLONIZATION
+				NOT = {
+					any_owned_planet = {
+						is_under_colonization = yes
+					}
+				}
+			}
+		}
+	}
+
+	on_queued = {
+		owner = {
+			set_country_flag = already_embarking
+		}
+	}
+
+	on_unqueued = {
+		owner = {
+			remove_country_flag = already_embarking
+		}
+	}
+
+	abort_trigger = {
+		owner = {
+			can_embark_trigger = no
+		}
+	}
+
+	abort_effect = {
+		owner = {
+			remove_country_flag = already_embarking
+		}
+	}
+
+	resources = {
+		category = decisions
+		cost = {
+			influence = @arkship_cost_influence_500
+		}
+		cost = {
+			trigger = {
+				owner = { country_uses_bio_ships = no }
+			}
+			alloys = @arkship_cost_alloys_10000
+		}
+		cost = {
+			trigger = {
+				owner = { country_uses_bio_ships = yes }
+			}
+			alloys = @arkship_cost_alloys_10000
+			mult = 0.5
+		}
+		cost = {
+			trigger = {
+				owner = { country_uses_bio_ships = yes }
+			}
+			food = @arkship_cost_alloys_10000
+			mult = @halved_alloy_to_food_cost_ratio
+		}
+	}
+
+	effect = {
+		owner = {
+			remove_country_flag = already_embarking
+			save_event_target_as = player_country
+		}
+		if = {
+			limit = {
+				owner = {
+					has_tradition = tr_nomadic_legacy_adopt
+				}
+			}
+			custom_tooltip = settled_arkship_embarkation_effect_short
+			owner = {
+				country_event = { id = settled_arkship.43 }
+			}
+		}
+		else = {
+			custom_tooltip = nomad_embarkation_effect_short
+			owner = {
+				if = {
+					limit = { has_ascension_perk = ap_eternal_vigilance }
+					remove_ascension_perk = ap_eternal_vigilance
+					add_ascension_perk = ap_eternal_vigilance_nomads
+				}
+				country_event = { id = nomads.4710 }
+			}
+		}
+	}
+
+	ai_weight = {
+		weight = 0
+	}
+}
