@@ -10,7 +10,7 @@
 - 启动逐星局势
 - 提供游牧加成
 
-### 定居游牧专属飞升（传统闭门后可选）
+### 定居游牧专属飞升（采纳游牧传统后可选）
 
 - 浪迹星涯
 - 掌控自然(游牧)、星际主权(游牧)、中央特权(游牧)、太空子民(游牧)：效果取自原版各飞升的游牧变体
@@ -27,7 +27,7 @@
 ## 注意事项
 
 - 本模组制作者能力和精力有限，不能进行详尽的测试，如果发现任何问题，请提交 Issues
-- 本模组修改了方舟舰、驿站相关科技、后勤舰以及部分原版游牧机制（合约接包/发包资格、游历推进事件），不建议与同样定位的模组同时加载
+- 本模组修改了方舟舰、驿站相关科技，后勤舰、驿站巨构以及部分原版游牧机制（合约接包/发包资格、游历推进事件），不建议与同样定位的模组同时加载
 - 原版游牧专属事件与起源保持游牧限定，定居帝国不会触发
 - ai无法选择游牧传统
 - 修复了后勤舰采集一段时间资源后待机不动的问题
@@ -49,7 +49,7 @@
 - Starts the Starward situation
 - Provides nomadic bonuses
 
-### Settled-Nomadic Exclusive Ascension Perks (available after finishing the tradition tree)
+### Settled-Nomadic Exclusive Ascension Perks (available after adopting the Nomadic tradition)
 
 - Wanderlust
 - Mastery of Nature (Nomads), Interstellar Dominion (Nomads), Imperial Prerogative (Nomads), Voidborne (Nomads): effects taken from each perk's vanilla nomadic variant
@@ -66,7 +66,7 @@
 ## Notes
 
 - This mod's author has limited time and energy and cannot test exhaustively. If you find any issues, please submit an Issue
-- This mod modifies arkships, waystation-related technologies, logistic ships, and some vanilla nomadic mechanics (contract acceptance/issuance eligibility, exploration progression events); loading it alongside mods with the same focus is not recommended
+- This mod modifies arkships, waystation-related technologies, logistic ships, waystation megastructures, and some vanilla nomadic mechanics (contract acceptance/issuance eligibility, exploration progression events); loading it alongside mods with the same focus is not recommended
 - Vanilla nomadic-exclusive events and origins remain nomadic-only; settled empires will not trigger them
 - AI cannot pick the nomadic tradition tree
 - Fixed the issue of logistic ships going idle after harvesting resources for a while

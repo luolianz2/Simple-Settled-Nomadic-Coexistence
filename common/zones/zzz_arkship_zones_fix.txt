@@ -1,0 +1,393 @@
+zone_ark_research_unity = {
+	icon = GFX_district_specialization_ark_research_unity_consumer_goods
+	base_buildtime = @zone_buildtime
+	potential = { # planet scope
+		hidden_trigger = {
+			owner? = {
+				is_nomadic_or_traditional = yes
+				is_gestalt = no
+			}
+		}
+	}
+
+	unlock = { # planet scope
+		hidden_trigger = {
+			owner? = {
+				is_nomadic_or_traditional = yes
+				is_gestalt = no
+			}
+		}
+	}
+
+	resources = {
+		category = planet_zones
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = alloys
+			COST = @zone_cost
+			NOMADIC_COST_MULT = 0.5
+		}
+	}
+
+	zone_sets = {
+		ark_urban
+	}
+
+	included_building_sets = {
+		research
+		unity
+		origin
+		trade
+		physics
+		society
+		engineering
+	}
+
+	convert_to = {
+		zone_ark_research_unity_gestalt
+		zone_research_unity
+	}
+
+	inline_script = {
+		script = zones/shared_city_non_urban_zone_modifiers
+	}
+
+	inline_script = {
+		script = jobs/zone_researchers_add
+		AMOUNT = @scaling_district_researchers_5_jobs
+		LARGE_AMOUNT = @scaling_district_researchers_2_jobs
+	}
+
+	inline_script = {
+		script = jobs/zone_unity_jobs_add
+		AMOUNT = @scaling_district_unity_5_jobs
+	}
+
+	inline_script = {
+		script = jobs/zone_trader_add
+		AMOUNT = @scaling_district_unity_5_jobs
+	}
+
+	planet_modifier = {
+		zone_building_slots_add = 3
+	}
+
+	triggered_desc = {
+		trigger = {
+			always = yes
+		}
+		text = zone_research_unity_triggered_desc
+	}
+
+	ai_priority = 8
+}
+
+
+zone_ark_industrial = {
+	icon = GFX_district_specialization_ark_research_alloys_support
+	base_buildtime = @zone_buildtime
+	potential = { # planet scope
+		hidden_trigger = {
+			owner? = {
+				is_nomadic_or_traditional = yes
+				is_gestalt = no
+			}
+		}
+	}
+
+	unlock = { # planet scope
+		hidden_trigger = {
+			owner? = {
+				is_nomadic_or_traditional = yes
+				is_gestalt = no
+			}
+		}
+	}
+
+	resources = {
+		category = planet_zones
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = alloys
+			COST = @zone_cost
+			NOMADIC_COST_MULT = 0.5
+		}
+	}
+
+	zone_sets = {
+		ark_urban
+	}
+
+	included_building_sets = {
+		industrial
+		foundry
+		factory
+		trade
+		origin
+	}
+
+	convert_to = {
+		zone_ark_foundry
+		zone_industrial
+		zone_foundry
+	}
+
+	inline_script = {
+		script = zones/shared_city_non_urban_zone_modifiers
+	}
+
+	inline_script = {
+		script = jobs/zone_foundry_add
+		AMOUNT = @scaling_district_3_jobs
+		AMOUNT2 = @scaling_district_2_jobs
+	}
+
+	inline_script = {
+		script = jobs/zone_factory_add
+		AMOUNT = @scaling_district_3_jobs
+		AMOUNT2 = @scaling_district_3_jobs
+	}
+
+	inline_script = {
+		script = jobs/zone_trader_add
+		AMOUNT = @scaling_district_3_jobs
+	}
+
+	planet_modifier = {
+		zone_building_slots_add = 3
+	}
+
+	triggered_desc = {
+		trigger = {
+			always = yes
+		}
+		text = zone_research_unity_triggered_desc
+	}
+
+	ai_priority = 8
+}
+
+
+zone_ark_research_unity_gestalt = {
+	icon = GFX_district_specialization_ark_research_unity_consumer_goods
+	base_buildtime = @zone_buildtime
+	potential = { # planet scope
+		hidden_trigger = {
+			owner? = {
+				is_nomadic_or_traditional = yes
+				is_gestalt = yes
+			}
+		}
+	}
+
+	unlock = { # planet scope
+		hidden_trigger = {
+			owner? = {
+				is_nomadic_or_traditional = yes
+				is_gestalt = yes
+			}
+		}
+	}
+
+	resources = {
+		category = planet_zones
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = alloys
+			COST = @zone_cost
+			NOMADIC_COST_MULT = 0.5
+		}
+	}
+
+	zone_sets = {
+		ark_urban
+	}
+
+	included_building_sets = {
+		research
+		unity
+		origin
+		trade
+	}
+
+	convert_to = {
+		zone_ark_research_unity
+		zone_research_unity
+	}
+
+	inline_script = {
+		script = zones/shared_city_non_urban_zone_modifiers
+	}
+
+	inline_script = {
+		script = jobs/zone_researchers_add
+		AMOUNT = @scaling_district_researchers_5_jobs
+		LARGE_AMOUNT = @scaling_district_researchers_2_jobs
+	}
+
+	inline_script = {
+		script = jobs/zone_unity_jobs_add
+		AMOUNT = @scaling_district_unity_5_jobs
+	}
+
+	inline_script = {
+		script = jobs/zone_trader_add
+		AMOUNT = @scaling_district_unity_5_jobs
+	}
+
+	planet_modifier = {
+		zone_building_slots_add = 3
+	}
+
+	triggered_desc = {
+		trigger = {
+			always = yes
+		}
+		text = zone_research_unity_triggered_desc
+	}
+
+	ai_priority = 8
+}
+
+
+zone_ark_foundry = {
+	icon = GFX_district_specialization_ark_research_alloys_support
+	base_buildtime = @zone_buildtime
+	potential = { # planet scope
+		hidden_trigger = {
+			owner? = {
+				is_nomadic_or_traditional = yes
+				is_gestalt = yes
+			}
+		}
+	}
+
+	unlock = { # planet scope
+		hidden_trigger = {
+			owner? = {
+				is_nomadic_or_traditional = yes
+				is_gestalt = yes
+			}
+		}
+	}
+
+	resources = {
+		category = planet_zones
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = alloys
+			COST = @zone_cost
+			NOMADIC_COST_MULT = 0.5
+		}
+	}
+
+	zone_sets = {
+		ark_urban
+	}
+
+	included_building_sets = {
+		industrial
+		foundry
+		factory
+		trade
+	}
+
+	convert_to = {
+		zone_ark_industrial
+		zone_foundry
+		zone_industrial
+	}
+
+	inline_script = {
+		script = zones/shared_city_non_urban_zone_modifiers
+	}
+
+	inline_script = {
+		script = jobs/zone_foundry_add
+		AMOUNT = @scaling_district_2_jobs
+		AMOUNT2 = @scaling_district_2_jobs
+	}
+
+	inline_script = {
+		script = jobs/zone_trader_add
+		AMOUNT = @scaling_district_2_jobs
+		AMOUNT2 = @scaling_district_2_jobs
+	}
+
+	planet_modifier = {
+		zone_building_slots_add = 3
+	}
+
+	triggered_desc = {
+		trigger = {
+			always = yes
+		}
+		text = zone_research_unity_triggered_desc
+	}
+
+	ai_priority = 8
+}
+
+# Generator Zones
+
+# Also accepts zone_energy in 00_zones.txt
+
+
+zone_ark_waystation_trade = {
+	icon = GFX_district_specialization_trade
+	base_buildtime = @zone_buildtime
+	potential = { # planet scope
+		owner? = {
+			is_nomadic_or_traditional = yes
+			has_technology = tech_waystation_2
+		}
+	}
+
+	show_in_tech = tech_waystation_2
+	show_tech_unlock_if = {
+		is_nomadic_or_traditional = yes
+	}
+
+	resources = {
+		category = planet_zones
+		inline_script = {
+			script = buildings/nomadic_cost_switcher
+			REGULAR_RESOURCE = minerals
+			NOMADIC_RESOURCE = alloys
+			COST = @zone_cost
+			NOMADIC_COST_MULT = 0.5
+		}
+	}
+
+	inline_script = {
+		script = jobs/zone_ark_waystation_trader_add
+		AMOUNT = @base_rural_district_jobs
+	}
+
+	planet_modifier = {
+		zone_building_slots_add = 3
+	}
+
+	ai_weight_coefficient = 0.8
+	ai_priority = 10
+
+	zone_sets = {
+		ark_basic
+	}
+
+	included_building_sets = {
+		trade
+		urban
+		urban_automation
+	}
+
+	swap_type = district_ark_waystation_trade
+	swap_type_weight = 5
+}
+
+# Military Zones
+

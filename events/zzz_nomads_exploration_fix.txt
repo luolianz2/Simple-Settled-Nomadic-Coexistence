@@ -1,7 +1,7 @@
 # 浪迹星涯游历推进事件（自有事件，不覆盖原版 nomads.4720）
-# 原版 trigger 要求 owner 为游牧（is_nomadic = yes）→ 点游牧传统闭门的定居帝国无法推进游历任务
+# 原版 trigger 要求 owner 为游牧，此处改为点游牧传统开门的定居帝国也可推进游历
 # 原版 nomads.4720 由 on_entering_system 直接触发（trigger 要求游牧，对定居无效）；本事件同样挂 on_entering_system（模组 on_actions 合并），
-# owner 判定改为 OR { is_nomadic, has_tradition = tr_nomadic_legacy_finish }，使点传统定居帝国可推进游历
+# owner 判定使用统一键 is_nomadic_or_traditional（游牧或游牧传统开门）
 
 
 namespace = settled_arkship
@@ -14,10 +14,7 @@ ship_event = { # Nomad Exploration Rewards
 
 	trigger = {
 		owner = {
-			OR = {
-				is_nomadic = yes
-				has_tradition = tr_nomadic_legacy_finish
-			}
+			is_nomadic_or_traditional = yes
 			has_ascension_perk = ap_wanderlust
 			NOT = {
 				has_country_flag = nomad_exploration_complete

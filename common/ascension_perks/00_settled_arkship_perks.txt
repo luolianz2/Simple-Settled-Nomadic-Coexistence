@@ -1,19 +1,16 @@
-# 游牧专属飞升（点"游牧"传统闭门后解锁）
+# 游牧专属飞升（点游牧传统开门后解锁）
 # 效果数值沿用原版游牧变体，显示名带"(游牧)"与普通版区分
 # 键名前缀 settled_arkship_ 避免与原版冲突
 
 # 浪迹星涯：覆盖原版 ap_wanderlust（原版 potential 仅游牧可选，游历事件 nomads.4720 检查 has_ascension_perk = ap_wanderlust）
-# 覆盖后键不变：游牧帝国照常可选，点游牧传统闭门的定居帝国也可选；游历机制（事件链 nomads.4715 + flags）完全复用原版
+# 覆盖后键不变：游牧帝国照常可选，点游牧传统开门的定居帝国也可选；游历机制（事件链 nomads.4715 + flags）完全复用原版
 ap_wanderlust = {
 	potential = {
 		has_nomads_dlc = yes
 		NOT = {
 			has_ascension_perk = ap_wanderlust
 		}
-		OR = {
-			is_nomadic = yes
-			has_tradition = tr_nomadic_legacy_finish
-		}
+		is_nomadic_or_traditional = yes
 	}
 
 	on_enabled = {
@@ -105,7 +102,7 @@ ap_wanderlust = {
 # 掌控自然(游牧)：原版 ap_mastery_of_nature 的游牧变体效果
 settled_arkship_mastery_nature = {
 	potential = {
-		has_tradition = tr_nomadic_legacy_finish
+		has_tradition = tr_nomadic_legacy_adopt
 		NOR = {
 			has_ascension_perk = settled_arkship_mastery_nature
 			is_environmental_architects_empire = yes
@@ -126,7 +123,7 @@ settled_arkship_mastery_nature = {
 # 星际主权(游牧)：原版 ap_interstellar_dominion 的游牧变体效果
 settled_arkship_interstellar_dominion = {
 	potential = {
-		has_tradition = tr_nomadic_legacy_finish
+		has_tradition = tr_nomadic_legacy_adopt
 		NOR = {
 			has_ascension_perk = settled_arkship_interstellar_dominion
 		}
@@ -147,7 +144,7 @@ settled_arkship_interstellar_dominion = {
 # 中央特权(游牧)：原版 ap_imperial_prerogative 的游牧变体效果
 settled_arkship_imperial_prerogative = {
 	potential = {
-		has_tradition = tr_nomadic_legacy_finish
+		has_tradition = tr_nomadic_legacy_adopt
 		NOR = {
 			has_ascension_perk = settled_arkship_imperial_prerogative
 		}
@@ -167,7 +164,7 @@ settled_arkship_imperial_prerogative = {
 # 太空子民(游牧)：原版 ap_voidborn 的游牧变体效果
 settled_arkship_voidborn = {
 	potential = {
-		has_tradition = tr_nomadic_legacy_finish
+		has_tradition = tr_nomadic_legacy_adopt
 		is_void_dweller_empire = no
 		is_wilderness_empire = no
 		NOR = {
